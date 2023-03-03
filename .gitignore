@@ -1,8 +1,7 @@
 venv/
 media/
 *.py[c]
-base/*/migrations/*.py
-!base/*/migrations/init.py
-base/*.sqlite3
-*.txt
+*/migrations/*.py
+*/migrations/init.py
+*.sqlite3
 *.docx
