@@ -1,0 +1,8 @@
+venv/
+media/
+*.py[c]
+base/*/migrations/*.py
+!base/*/migrations/init.py
+base/*.sqlite3
+*.txt
+*.docx
