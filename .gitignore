@@ -1,7 +1,7 @@
 venv/
 media/
 *.py[c]
-*/migrations/*.py
+digital_dex_admin_web/migrations/.py
 */migrations/init.py
 
 ###### Database #######
