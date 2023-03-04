@@ -4,15 +4,25 @@ from rest_framework.response import Response
 from django.contrib.auth import login, logout
 from rest_framework import status
 from django.contrib.auth.models import User
+from constants.http_messages import *
 
 
 class LoginAdminView(APIView):
+    
     serializer_class = LoginAdminSerializer
 
     def post(self, request):
+        errors = {}
+        data = {}
+        status = None
+        message = None
+
         serializer = self.serializer_class(data=request.data)
+
         if not serializer.is_valid():
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            message = 'Invalid Value Error'
+            status = bad_request
+            return Response({"status": status , "message": message ,  "data": data , "errors": serializer.errors})
 
         email = serializer.validated_data.get('email')
         password = serializer.validated_data.get('password')
@@ -20,15 +30,23 @@ class LoginAdminView(APIView):
         errors = self.validate_email_and_password(email, password)
         
         if errors:
-            return Response({'errors': errors}, status=status.HTTP_401_UNAUTHORIZED)
+            message = 'Invalid Value Error'
+            status = bad_request
+            return Response({"status": status , "message": message ,  "data": data , "errors": serializer.errors})
         
 
         user = self.authenticate_user(email, password)
         if user:
             login(request, user)
-            return Response({'data': {'message': 'Logged in successfully.'}}, status=status.HTTP_200_OK)
+            status = ok
+            message = ' Logged in Successfully'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         else:
-            return Response({'errors': {'authentication': ['Invalid email or password.']}}, status=status.HTTP_401_UNAUTHORIZED)
+            message = 'User not authenticated'
+            status = unauthorized
+            errors = serializer.errors
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+
 
 
     def validate_email_and_password(self, email, password):
@@ -59,12 +77,26 @@ class LoginAdminView(APIView):
     
 class LogoutAdminView(APIView):
     def get(self, request):
+        errors = {}
+        data = {}
+        status = None
+        message = None
         if not request.user.is_authenticated:
-            return Response({'error': 'You are not logged in.'}, status=status.HTTP_401_UNAUTHORIZED)
+            message = 'You are not logged in'
+            status = unauthorized
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
 
         try:
+
             logout(request)
-            return Response({'data': {'message': 'Logged out successfully.'}}, status=status.HTTP_200_OK)
+
+            status = ok
+            message = 'Logged out Successfully'
+
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        
         except Exception as e:
-            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            message = 'Internal 500 error'
+            status = internal_server_error
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
     
