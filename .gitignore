@@ -3,5 +3,12 @@ media/
 *.py[c]
 */migrations/*.py
 */migrations/init.py
+
+###### Database #######
 *.sqlite3
+db.sqlite3
+
+
 *.docx
+
+

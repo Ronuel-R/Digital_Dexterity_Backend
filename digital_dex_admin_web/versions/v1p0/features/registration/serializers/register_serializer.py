@@ -6,8 +6,8 @@ class RegisterAdminSerializer(serializers.ModelSerializer):
     age = serializers.IntegerField()
     position = serializers.CharField()
     gender = serializers.CharField()
-    signature = serializers.ImageField()
-    profile_picture = serializers.ImageField()
+    signature = serializers.ImageField(required=False)
+    profile_picture = serializers.ImageField(required=False)
     class Meta:
         model = User
         fields = ['first_name','last_name', 'email','password','phone_num','age','gender','signature','position','profile_picture']

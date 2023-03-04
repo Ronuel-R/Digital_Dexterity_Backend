@@ -33,7 +33,7 @@ class RegisterAdminView(APIView):
             status = ok
             message = 'Invalid Value'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-
+        
         if serializer.is_valid():
             Admin.objects.create(
                 user = User.objects.create(
@@ -55,6 +55,11 @@ class RegisterAdminView(APIView):
             message = 'Account Successfully Created'
             data = serializer.data
             errors = serializer.errors
+        else:
+            status = ok
+            message = 'Invalid Value'
+            errors = serializer.errors
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
     
     def validate_data(self,request):
@@ -82,28 +87,27 @@ class RegisterAdminView(APIView):
     def validate_image(self,request):
         errors = {}
         
-        if 'signature' in request.data and request.data['signature'] != '':
-            signature_size = request.data['signature'].size
-            signature_ext = request.FILES["signature"]
-            
-
-            if float(signature_size) > 5000000:
-                errors['signature_size'] = "You cannot upload file more than 5Mb"
-
-            if signature_ext.content_type != 'image/png' and signature_ext.content_type != 'image/jpeg':
-                errors['signature_ext'] = "Only use .PNG files or .JPEG files"
-
-        if 'profile_picture' in request.data and request.data['profile_picture'] != '':
-
-            profile_picture_size = request.data['profile_picture'].size
-            profile_picture_ext = request.FILES["profile_picture"]
-
-            
-            if float(profile_picture_size) > 5000000:
-                errors['profile_size'] = "You cannot upload file more than 5Mb"
+        if 'signature' in request.data:
+            if request.data['signature'] != '':
+                signature_size = request.data['signature'].size
+                signature_ext = request.FILES["signature"]
                 
-            if profile_picture_ext.content_type != 'image/png' and profile_picture_ext.content_type != 'image/jpeg':
-                errors['profile_ext'] = "Only use .PNG files or .JPEG files"
+                if float(signature_size) > 5000000:
+                    errors['signature_size'] = "You cannot upload file more than 5Mb"
+
+                if signature_ext.content_type != 'image/png' and signature_ext.content_type != 'image/jpeg':
+                    errors['signature_ext'] = "Only use .PNG files or .JPEG files"
+
+        if 'profile_picture' in request.data:
+            if request.data['profile_picture'] != '':
+                profile_picture_size = request.data['profile_picture'].size
+                profile_picture_ext = request.FILES["profile_picture"]
+
+                if float(profile_picture_size) > 5000000:
+                    errors['profile_size'] = "You cannot upload file more than 5Mb"
+                    
+                if profile_picture_ext.content_type != 'image/png' and profile_picture_ext.content_type != 'image/jpeg':
+                    errors['profile_ext'] = "Only use .PNG files or .JPEG files"
             
         self.errors = errors
 
