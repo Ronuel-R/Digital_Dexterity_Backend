@@ -2,15 +2,6 @@ venv/
 media/
 *.py[c]
 digital_dex_admin_web/migrations/.py
-*/migrations/init.py
-
-###### Database #######
-*.sqlite3
+!*/migrations/init.py
 db.sqlite3
-
-
-
 *.docx
-
-
-db.sqlite3
