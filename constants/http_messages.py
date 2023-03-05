@@ -42,3 +42,8 @@ request_URI_too_Long = '414'
 unsupported_media_type = '415' 	
 range_not_satisfiable = '416' 	
 expectation_failed = '417' 
+
+########## 500 errors ################
+
+internal_server_error = '500'
+
