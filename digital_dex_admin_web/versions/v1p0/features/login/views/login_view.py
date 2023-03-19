@@ -5,9 +5,11 @@ from django.contrib.auth import login, logout
 from rest_framework import status
 from django.contrib.auth.models import User
 from constants.http_messages import *
+from django.middleware.csrf import CsrfViewMiddleware
 
 
 class LoginAdminView(APIView):
+
     
     serializer_class = LoginAdminSerializer
 
@@ -16,7 +18,7 @@ class LoginAdminView(APIView):
         data = {}
         status = None
         message = None
-
+        
         serializer = self.serializer_class(data=request.data)
 
         if not serializer.is_valid():
