@@ -10,7 +10,7 @@ from constants.http_messages import *
 class LoginAdminView(APIView):
     
     serializer_class = LoginAdminSerializer
-
+    
     def post(self, request):
         errors = {}
         data = {}
@@ -75,28 +75,5 @@ class LoginAdminView(APIView):
         return user
     
     
-class LogoutAdminView(APIView):
-    def get(self, request):
-        errors = {}
-        data = {}
-        status = None
-        message = None
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
 
-        try:
-
-            logout(request)
-
-            status = ok
-            message = 'Logged out Successfully'
-
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        except Exception as e:
-            message = 'Internal 500 error'
-            status = internal_server_error
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
     
