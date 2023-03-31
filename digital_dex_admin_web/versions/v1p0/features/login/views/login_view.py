@@ -5,7 +5,8 @@ from django.contrib.auth import login, logout
 from rest_framework import status
 from django.contrib.auth.models import User
 from constants.http_messages import *
-from django.middleware.csrf import CsrfViewMiddleware
+from constants.login_helper import LoginHelper
+from django.middleware.csrf import get_token
 
 
 class LoginAdminView(APIView):
@@ -18,6 +19,11 @@ class LoginAdminView(APIView):
         data = {}
         status = None
         message = None
+        
+        if request.user.is_authenticated:
+            message = 'You are already logged in'
+            status = ok
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         serializer = self.serializer_class(data=request.data)
 
@@ -34,15 +40,19 @@ class LoginAdminView(APIView):
         if errors:
             message = 'Invalid Value Error'
             status = bad_request
-            return Response({"status": status , "message": message ,  "data": data , "errors": serializer.errors})
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
 
         user = self.authenticate_user(email, password)
         if user:
+
             login(request, user)
+            LoginHelper.get_csrf_token(request)
             status = ok
             message = ' Logged in Successfully'
+
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        
         else:
             message = 'User not authenticated'
             status = unauthorized
