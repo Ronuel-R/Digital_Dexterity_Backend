@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from constants.http_messages import *
 from ......models.admin_model import Admin
+from rest_framework import status
 from ..serializers.profile_page_serializer import ProfilePageSerializer
 
 
@@ -9,7 +10,7 @@ class ProfilePageView(APIView):
     def get(self, request):
         errors = {}
         data = {}
-        status = None
+        status_code = None
         message = None
 
         try:
@@ -20,24 +21,17 @@ class ProfilePageView(APIView):
 
             if admin:
                 serializer = ProfilePageSerializer(admin)
-                serialized_data = serializer.data
-
-                data = {
-                    'user': serialized_data.get('user', None),
-                    'profile_picture': serialized_data.get('profile_picture', None),
-                    'full_name': serialized_data.get('full_name', ''),
-                    'age': serialized_data.get('age', None),
-                    'gender': serialized_data.get('gender', None),
-                    'phone_num': serialized_data.get('phone_num', ''),
-                    'position': serialized_data.get('position', ''),
-                    'signature': serialized_data.get('signature', ''),
-                }
-
-            status = ok
+            data = serializer.data
+                
+            status_code = status.HTTP_200_OK
             message = 'Success'
-            
+
         except Exception as e:
             errors['message'] = str(e)
-            status = bad_request
-        
-        return Response({"status": status, "message": message, "data": data, "errors": errors})
+            status_code = status.HTTP_400_BAD_REQUEST
+
+        return Response({"status": status_code, "message": message, "data": data, "errors": errors})
+    
+
+
+ 

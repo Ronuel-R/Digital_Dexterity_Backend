@@ -18,6 +18,8 @@ from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
 from digital_dex_admin_web.versions.v1p0.features.profile_page.views import profile_page_view
+from digital_dex_admin_web.versions.v1p0.features.update_user.views import update_user_view
+from digital_dex_admin_web.versions.v1p0.features.delete_user.views import delete_user_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -25,5 +27,7 @@ urlpatterns = [
     re_path("logout/", login_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
     re_path("profile/", profile_page_view.ProfilePageView.as_view()),
+    re_path("update-user/", update_user_view.UpdateUserView.as_view()),
+    re_path("delete-user/", delete_user_view.DeleteUserView.as_view()),
 ]
 
