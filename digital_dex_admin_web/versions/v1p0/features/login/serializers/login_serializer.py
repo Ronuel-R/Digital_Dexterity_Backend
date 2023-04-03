@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 
 
-class LoginAdminSerializer(serializers.Serializer):
+class LoginAdminSerializer(serializers.ModelSerializer):
     email = serializers.EmailField()
     password = serializers.CharField()
     

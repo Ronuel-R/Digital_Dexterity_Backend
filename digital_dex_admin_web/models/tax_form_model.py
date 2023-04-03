@@ -9,7 +9,8 @@ def upload_signature_approval_location(instance, filename):
     return 'Approved By/%s' % (new_file)
 
 class TaxForm(models.Model):
-    td_no = models.IntegerField(null=True)
+    id = models.AutoField(primary_key=True)
+    td_no = models.CharField(null=True)
     property_identification_no = models.IntegerField(null=True)
 
 ############## OWNER ########################
@@ -57,7 +58,7 @@ class TaxForm(models.Model):
 
 ############## INITIAL ASSESSMENT #########
 
-    initial_assessment = models.ManyToManyField(InitialAssessment, blank=True, null=True)
+    initial_assessments = models.ManyToManyField(InitialAssessment)
 
     total_assessed_value_words = models.CharField(max_length=255,null=True)
     total_assessed_value = models.FloatField(null=True)
@@ -74,15 +75,24 @@ class TaxForm(models.Model):
 
     qtr = models.IntegerField(null=True)
     year = models.DateField(max_length=255,null=True)
-    approved_by = models.ImageField(blank = True, upload_to=upload_signature_approval_location,null = True)
+    approved_by = models.CharField(null=True)
     date_assessed = models.DateField(null=False)
 
 ############# CANCEL OWNERSHIP #####################
 
-    cancels_td_no = models.IntegerField(null=True)
+    cancels_td_no = models.CharField(null=True)
     cancel_owner = models.CharField(max_length=255,null=True)
     cancel_previous_av_pph = models.CharField(max_length=255,null=True)
     memoranda = models.TextField(max_length=255,null=True)
+
+############# Date Modified ########################
+    STATUS_CHOICES = (
+        ('R', 'Recently Updated'),
+        ('P', 'Processing'),
+    )
+    date_modified = models.DateField()
+    created = models.DateTimeField(default=timezone.now, null=False,editable=False)
+    status = property_choices = models.CharField(max_length=1, choices=STATUS_CHOICES, null = True)
 
     class Meta:
         verbose_name = 'Tax Declaration of Real Property'

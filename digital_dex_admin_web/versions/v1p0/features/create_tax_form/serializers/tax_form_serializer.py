@@ -2,12 +2,11 @@ from rest_framework import serializers
 from ......models.tax_form_model import TaxForm
 from .initial_assessment_serializer import InitialAssessmentSerializer
 
-class TaxFormSerializer(serializers.Serializer):
-
+class TaxFormSerializer(serializers.ModelSerializer):
     initial_assessments = InitialAssessmentSerializer(many=True, required = True)
     class Meta:
         model = TaxForm
-        fields = ['td_no', 'property_identification_no',
+        fields = ['id','td_no', 'property_identification_no',
                   
                   ############## OWNER ########################
                   'owner', 'owner_tin','owner_address','owner_tel_no',
@@ -34,7 +33,9 @@ class TaxFormSerializer(serializers.Serializer):
                   'taxable',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
-                  'year','approved_by','date_assessed',
+                  'year',
+                #   'approved_by',
+                  'date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################
                   'cancels_td_no','cancel_owner','cancel_previous_av_pph','memoranda'

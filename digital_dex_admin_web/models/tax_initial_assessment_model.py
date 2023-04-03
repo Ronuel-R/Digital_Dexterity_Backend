@@ -2,7 +2,7 @@ from django.db import models
 
 
 class InitialAssessment(models.Model):
-
+    id = models.AutoField(primary_key=True)
     classification = models.CharField(max_length=255,null=True)
     area = models.FloatField(null=True)
     market_value = models.FloatField(null=True)

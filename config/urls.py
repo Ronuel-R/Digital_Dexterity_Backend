@@ -17,13 +17,19 @@ from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
-from digital_dex_admin_web.versions.v1p0.features.tax_form.views import tax_form_views
+from digital_dex_admin_web.versions.v1p0.features.create_tax_form.views import tax_form_views
+from digital_dex_admin_web.versions.v1p0.features.display_tax_dec.views import display_tax_views
+from digital_dex_admin_web.versions.v1p0.features.delete_tax_dec.views import delete_tax_views
+from digital_dex_admin_web.versions.v1p0.features.update_tax_form.views import update_tax_views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path("login/", login_view.LoginAdminView.as_view()),
     re_path("logout/", login_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
-    re_path("tax-declaration/add/", tax_form_views.TaxFormViews.as_view()),
+    re_path("tax-declaration/add/", tax_form_views.TaxFormViews.as_view(), name='create_tax_dec'),
+    re_path("tax-declaration/delete/", delete_tax_views.DeleteTaxDecViews.as_view(), name='delete_tax_dec'),
+    re_path("tax-declaration/update/", update_tax_views.UpdateTaxFormViews.as_view(), name='update_tax_dec'),
+    re_path("tax-declaration/", display_tax_views.DisplayTaxDecViews.as_view(), name='display_tax_dec'),
 ]
 

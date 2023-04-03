@@ -7,6 +7,9 @@ from ......models.tax_initial_assessment_model import InitialAssessment
 ################### Serializer ##########################
 
 from ..serializers.tax_form_serializer import TaxFormSerializer
+
+################### Static Modules ######################
+
 from rest_framework.response import Response
 from constants.http_messages import *
 from constants.tax_form_helper import TaxFormHelper
@@ -33,7 +36,6 @@ class TaxFormViews(APIView):
 
         serializer = TaxFormSerializer(data=request.data)
        
-
         if serializer.is_valid():
             tax_declaration_form = TaxForm.objects.create(
 
@@ -95,7 +97,9 @@ class TaxFormViews(APIView):
 
                 qtr = request.data['qtr'],
                 year = request.data['year'],
-                approved_by = request.data['approved_by'],  #Image File
+
+                # approved_by = request.data['approved_by'],  #Image File
+                
                 date_assessed = request.data['date_assessed'],
 
                 ############# CANCEL OWNERSHIP #####################
@@ -118,13 +122,12 @@ class TaxFormViews(APIView):
                     assessed_value = initial_assessment['assessed_value'],
                     
                 )
-                tax_declaration_form.initial_assessment.add(initial_assessment_obj)
+                tax_declaration_form.initial_assessments.add(initial_assessment_obj)
             
             tax_declaration_form.save()
-
             status = created
             message = 'Successfuly Registered Tax Declaration'
-            data = tax_declaration_form
+            data = serializer.data
             errors = serializer.errors
         else:
             status = ok

@@ -13,8 +13,14 @@ class RegisterAdminView(APIView):
         data = {}
         status = None
         message = None
+
+        if not request.user.is_authenticated:
+            message = 'You are not logged in'
+            status = unauthorized
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         serializer = RegisterAdminSerializer(data=request.data)
+        
         
         self.validate_data(request)
         
@@ -51,15 +57,19 @@ class RegisterAdminView(APIView):
                 signature = request.data['signature'],
                 full_name = request.data['first_name'] + ' ' + request.data['last_name'],
             )
+            print(serializer.data)
             status = created
             message = 'Account Successfully Created'
             data = serializer.data
             errors = serializer.errors
+
         else:
+
             status = ok
             message = 'Invalid Value'
             errors = serializer.errors
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
     
     def validate_data(self,request):

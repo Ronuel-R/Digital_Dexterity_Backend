@@ -1,6 +1,6 @@
 from digital_dex_admin_web.models.tax_form_model import TaxForm
 
-class TaxFormHelper:
+class UpdateTaxFormHelper:
     def validate_fields(self, request):
         errors = {}
         
