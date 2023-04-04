@@ -14,7 +14,9 @@ class ProfilePageView(APIView):
 
         try:
             if not request.user.is_authenticated:
-                raise Exception('You are not logged in')
+                message = 'You are not logged in'
+                status = unauthorized
+                return Response({"status": status, "message": message, "data": data, "errors": errors})
 
             admin = Admin.objects.filter(user=request.user).first()
 
@@ -30,14 +32,12 @@ class ProfilePageView(APIView):
                     'gender': serialized_data.get('gender', None),
                     'phone_num': serialized_data.get('phone_num', ''),
                     'position': serialized_data.get('position', ''),
-                    'signature': serialized_data.get('signature', ''),
                 }
-
             status = ok
             message = 'Success'
             
         except Exception as e:
-            errors['message'] = str(e)
+            errors = str(e)
             status = bad_request
         
         return Response({"status": status, "message": message, "data": data, "errors": errors})
