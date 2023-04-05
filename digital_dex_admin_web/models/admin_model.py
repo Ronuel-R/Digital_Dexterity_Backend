@@ -17,6 +17,7 @@ class Admin(models.Model):
     profile_picture = models.ImageField(blank = True, upload_to=upload_profile_location,null = True)
     full_name = models.CharField(max_length=255, null = True)
     age = models.IntegerField(null = True)
+    birthday = models.DateField(null = True)
     GENDER_CHOICES = (
         ('M', 'Male'),
         ('F', 'Female'),
@@ -24,7 +25,6 @@ class Admin(models.Model):
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = True)
     phone_num = models.CharField(max_length=11, null = True)
     position = models.CharField(max_length=255,null = True)
-    signature = models.ImageField(blank = True, upload_to=upload_signature_location,null = True)
     date_created = models.DateTimeField(default=timezone.now, null=False,editable=False)
 
     class Meta:
