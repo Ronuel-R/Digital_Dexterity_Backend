@@ -1,10 +1,19 @@
 from rest_framework import serializers
 from ......models.tax_form_model import TaxForm
-from .update_initial_assessment_serializer import UpdateInitialAssessmentSerializer
 from ......models.tax_initial_assessment_model import InitialAssessment
+# from .update_initial_assessment_serializer import UpdateInitialAssessmentSerializer
 
+class UpdateInitialAssessmentSerializer(serializers.ModelSerializer):
+    action = serializers.CharField(required=False)
+    class Meta:
+        model = InitialAssessment
+        fields = [
+                  ############## INITIAL ASSESSMENT #########
+                  'action','classification','area','market_value','actual_use','assessment_level',
+                  'assessed_value'
+                  ]
 class UpdateTaxFormSerializer(serializers.ModelSerializer):
-    initial_assessments = UpdateInitialAssessmentSerializer(many=True,read_only=True)
+    # initial_assessments = UpdateInitialAssessmentSerializer(many=True)
     class Meta:
         model = TaxForm
         fields = ['td_no', 'property_identification_no',
@@ -25,7 +34,7 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   'property_choices','no_of_storeys','brief_description',
 
                   ############## INITIAL ASSESSMENT #########
-                  'initial_assessments',
+                #   'initial_assessments',
                   'total_assessed_value',
                   'total_assessed_value_words',
                   'total_market_value',
@@ -41,19 +50,3 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   ############# CANCEL OWNERSHIP #####################
                   'cancels_td_no','cancel_owner','cancel_previous_av_pph','memoranda'
                   ]
-        
-    # def create(self, validated_data):
-    #   initial_assessments_data = validated_data.pop('initial_assessments')
-    #   tax_form = TaxForm.objects.create(**validated_data)
-    #   for initial_assessment_data in initial_assessments_data:
-    #       InitialAssessment.objects.create(tax_form=tax_form, **initial_assessment_data)
-    #   return tax_form
-  
-    # def update(self, instance, validated_data):
-    #   initial_assessments_data = validated_data.pop('initial_assessments', None)
-    #   instance = super().update(instance, validated_data)
-    #   if initial_assessments_data is not None:
-    #       instance.initial_assessments.all().delete()
-    #       for initial_assessment_data in initial_assessments_data:
-    #           InitialAssessment.objects.create(tax_form = instance, **initial_assessment_data)
-    #   return instance

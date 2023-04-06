@@ -6,7 +6,6 @@ class InitialAssessmentSerializer(serializers.ModelSerializer):
         model = InitialAssessment
         fields = [
                   ############## INITIAL ASSESSMENT #########
-                  'id','classification','area','market_value','actual_use','assessment_level',
+                  'id','tax_form','classification','area','market_value','actual_use','assessment_level',
                   'assessed_value',
-                  
                   ]

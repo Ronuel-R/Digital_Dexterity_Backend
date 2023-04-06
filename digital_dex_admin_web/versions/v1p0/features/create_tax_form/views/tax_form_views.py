@@ -7,6 +7,7 @@ from ......models.tax_initial_assessment_model import InitialAssessment
 ################### Serializer ##########################
 
 from ..serializers.tax_form_serializer import TaxFormSerializer
+from ..serializers.initial_assessment_serializer import InitialAssessmentSerializer
 
 ################### Static Modules ######################
 
@@ -76,8 +77,9 @@ class TaxFormViews(APIView):
                 ############## INITIAL ASSESSMENT ################
                 
                 total_assessed_value = request.data['total_assessed_value'],
-                total_assessed_value_words = request.data['total_assessed_value_words'],
                 total_market_value = request.data['total_market_value'],
+                total_assessed_value_words = request.data['total_assessed_value_words'],
+                
 
                 ############## KIND OF PROPERTY ############
 
@@ -98,7 +100,7 @@ class TaxFormViews(APIView):
                 qtr = request.data['qtr'],
                 year = request.data['year'],
 
-                # approved_by = request.data['approved_by'],  #Image File
+                # approved_by = request.data['approved_by'],
                 
                 date_assessed = request.data['date_assessed'],
 
@@ -110,25 +112,30 @@ class TaxFormViews(APIView):
                 memoranda = request.data['memoranda'],
 
             )
-            ############## INITIAL ASSESSMENT ################
-            for initial_assessment in request.data['initial_assessments']:
-
-                initial_assessment_obj = InitialAssessment.objects.create(
-                    classification = initial_assessment['classification'],
-                    area = initial_assessment['area'],
-                    market_value = initial_assessment['market_value'],
-                    actual_use = initial_assessment['actual_use'],
-                    assessment_level = initial_assessment['assessment_level'],
-                    assessed_value = initial_assessment['assessed_value'],
-                    
-                )
-                tax_declaration_form.initial_assessments.add(initial_assessment_obj)
             
             tax_declaration_form.save()
+            ############## INITIAL ASSESSMENT ################
+            initial_assessment_serializer = InitialAssessmentSerializer(data=request.data['initial_assessments'],many=True)
+            
+            if initial_assessment_serializer.is_valid():
+                for initial_assessment in request.data['initial_assessments']:
+                    InitialAssessment.objects.create(
+                        tax_form = tax_declaration_form,
+                        classification = initial_assessment['classification'],
+                        area = initial_assessment['area'],
+                        market_value = initial_assessment['market_value'],
+                        actual_use = initial_assessment['actual_use'],
+                        assessment_level = initial_assessment['assessment_level'],
+                        assessed_value = initial_assessment['assessed_value'],
+                    )
+            if len(serializer.errors) != 0:
+                errors['tax_form'] = serializer.errors
+            if len(initial_assessment_serializer.errors) != 0:
+                errors['initial_assessment'] =  initial_assessment_serializer.errors
             status = created
             message = 'Successfuly Registered Tax Declaration'
             data = serializer.data
-            errors = serializer.errors
+            data['initial_assessment'] = initial_assessment_serializer.data
         else:
             status = ok
             message = 'Invalid Value'

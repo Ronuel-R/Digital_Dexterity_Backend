@@ -30,9 +30,6 @@ class DeleteTaxDecViews(APIView):
                 status_code = bad_request
                 return Response({"status": status_code, "message": message, "data": data, "errors": errors})
             
-            tax_model.initial_assessments.clear()
-            for initial_assessment in tax_model.initial_assessments.all():
-                initial_assessment.delete()
             tax_model.delete()
 
             message = 'Successfuly Deleted'

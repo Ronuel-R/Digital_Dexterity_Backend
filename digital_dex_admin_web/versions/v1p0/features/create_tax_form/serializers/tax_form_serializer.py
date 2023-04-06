@@ -3,7 +3,7 @@ from ......models.tax_form_model import TaxForm
 from .initial_assessment_serializer import InitialAssessmentSerializer
 
 class TaxFormSerializer(serializers.ModelSerializer):
-    initial_assessments = InitialAssessmentSerializer(many=True, required = True)
+    # initial_assessments = InitialAssessmentSerializer(many=True, required = True)
     class Meta:
         model = TaxForm
         fields = ['id','td_no', 'property_identification_no',
@@ -24,7 +24,7 @@ class TaxFormSerializer(serializers.ModelSerializer):
                   'property_choices','no_of_storeys','brief_description',
 
                   ############## INITIAL ASSESSMENT #########
-                  'initial_assessments',
+                  # 'initial_assessments',
                   'total_assessed_value',
                   'total_assessed_value_words',
                   'total_market_value',

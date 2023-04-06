@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.utils import timezone
-from .tax_initial_assessment_model import InitialAssessment
 
 def upload_signature_approval_location(instance, filename):
     
@@ -10,7 +9,7 @@ def upload_signature_approval_location(instance, filename):
 
 class TaxForm(models.Model):
     id = models.AutoField(primary_key=True)
-    td_no = models.CharField(null=True)
+    td_no = models.CharField(null=True,max_length=255)
     property_identification_no = models.IntegerField(null=True)
 
 ############## OWNER ########################
@@ -58,7 +57,7 @@ class TaxForm(models.Model):
 
 ############## INITIAL ASSESSMENT #########
 
-    initial_assessments = models.ManyToManyField(InitialAssessment)
+    # initial_assessments = models.ManyToManyField(InitialAssessment)
 
     total_assessed_value_words = models.CharField(max_length=255,null=True)
     total_assessed_value = models.FloatField(null=True)
@@ -75,12 +74,12 @@ class TaxForm(models.Model):
 
     qtr = models.IntegerField(null=True)
     year = models.DateField(max_length=255,null=True)
-    approved_by = models.CharField(null=True)
+    approved_by = models.CharField(null=True,max_length=255)
     date_assessed = models.DateField(null=False)
 
 ############# CANCEL OWNERSHIP #####################
 
-    cancels_td_no = models.CharField(null=True)
+    cancels_td_no = models.CharField(null=True,max_length=255)
     cancel_owner = models.CharField(max_length=255,null=True)
     cancel_previous_av_pph = models.CharField(max_length=255,null=True)
     memoranda = models.TextField(max_length=255,null=True)
@@ -90,13 +89,13 @@ class TaxForm(models.Model):
         ('R', 'Recently Updated'),
         ('P', 'Processing'),
     )
-    date_modified = models.DateField()
+    date_modified = models.DateField(null = True)
     created = models.DateTimeField(default=timezone.now, null=False,editable=False)
-    status = property_choices = models.CharField(max_length=1, choices=STATUS_CHOICES, null = True)
+    status_choices = models.CharField(max_length=1, choices=STATUS_CHOICES, null = True)
 
     class Meta:
         verbose_name = 'Tax Declaration of Real Property'
         verbose_name_plural = 'Tax Declaration of Real Properties'
 
     def __str__(self):
-        return str(self.td_no)
+        return str(self.id)

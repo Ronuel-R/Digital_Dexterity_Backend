@@ -27,6 +27,12 @@ class DisplayTaxDecViews(APIView):
         try: 
             id = request.query_params["id"]
             tax = TaxForm.objects.filter(id = id).first()
+
+            if tax is None:
+                message = 'Tax Declaration Form does not exist'
+                status = not_found
+                return Response({"status": status , "message": message , "data": data, "errors":errors})
+
             serializer = DisplayTaxFormSerializer(tax)
         except:
             tax = TaxForm.objects.all()
