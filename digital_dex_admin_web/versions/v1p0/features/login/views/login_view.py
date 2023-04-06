@@ -6,6 +6,8 @@ from django.contrib.auth import login
 ############ CONSTANTS ##################
 from constants.login_helper import LoginHelper
 from constants.http_messages import *
+from constants.login_helper import LoginHelper
+from django.middleware.csrf import get_token
 
 
 class LoginAdminView(APIView):
@@ -14,7 +16,6 @@ class LoginAdminView(APIView):
         data = {}
         status = None
         message = None
-
         if request.user.is_authenticated:
             message = 'You are already logged in'
             status = ok
@@ -40,9 +41,12 @@ class LoginAdminView(APIView):
         user = LoginHelper.authenticate_user(self, email, password)
 
         if user:
+
             login(request, user)
+            LoginHelper.get_csrf_token(request)
             status = ok
             message = ' Logged in Successfully'
+
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         else:

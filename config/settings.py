@@ -60,9 +60,9 @@ INSTALLED_APPS = [
 
 # REST_FRAMEWORK = {
 
-#     'DEFAULT_PERMISSION_CLASSES': [
-#         'rest_framework.renderers.<corresponding_renderer>'
-#     ]
+#     # 'DEFAULT_PERMISSION_CLASSES': [
+#     #     'rest_framework.renderers.<corresponding_renderer>'
+#     # ],
 # }
 
 MIDDLEWARE = [
@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'

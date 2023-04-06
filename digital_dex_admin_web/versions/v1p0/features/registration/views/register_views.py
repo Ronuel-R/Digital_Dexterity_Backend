@@ -45,15 +45,19 @@ class RegisterAdminView(APIView):
                 gender = request.data['gender'],
                 full_name = request.data['first_name'] + ' ' + request.data['last_name'],
             )
+            print(serializer.data)
             status = created
             message = 'Account Successfully Created'
             data = serializer.data
             errors = serializer.errors
+
         else:
+
             status = ok
             message = 'Invalid Value'
             errors = serializer.errors
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
     
     
