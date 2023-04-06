@@ -23,8 +23,18 @@ SECRET_KEY = 'django-insecure-4f#nh_1r5aw4$dp@c%)^^d05%4h$^iis719!soq0-_vh&ayajb
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['wup.pythonanywhere.com','127.0.0.1:8000','127.0.0.1','http://localhost:8081/','localhost:8081','127.0.0.1:8081']
+CORS_WHITELIST = [ 'localhost:8081','http://localhost:8081/']
+CORS_ALLOWED_ORIGINS = [
+    "https://wup.pythonanywhere.com",
+    "https://localhost:8081",
+    "https://localhost:8080",
+    "http://localhost:8080",
+    "http://127.0.0.1:8080",
+    "http://localhost:8081",
 
+]
+CORS_ORIGIN_ALLOW_ALL = True
 
 # Application definition
 
@@ -45,6 +55,7 @@ INSTALLED_APPS = [
 ##################    INSTALLED    ###################
 
     'rest_framework',
+    'corsheaders',
 ]
 
 # REST_FRAMEWORK = {
@@ -62,6 +73,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'config.urls'
@@ -141,7 +153,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')
 MEDIA_URL= '/media/'
-STATIC_ROOT='/home/Reaper25/yourhealth/static'
+STATIC_ROOT='/home/WUP/Digital_Dexterity_Backend/static'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
