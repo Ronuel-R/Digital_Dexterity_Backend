@@ -43,7 +43,6 @@ class LoginAdminView(APIView):
         if user:
 
             login(request, user)
-            LoginHelper.get_csrf_token(request)
             status = ok
             message = ' Logged in Successfully'
 
