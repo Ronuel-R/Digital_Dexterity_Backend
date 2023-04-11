@@ -22,7 +22,7 @@ class DisplayOwnershipRecordCardViews(APIView):
             tax = OwnsershipRecordCardModel.objects.filter(id = id).first()
 
             if tax is None:
-                message = 'Tax Declaration Form does not exist'
+                message = 'Ownership Record Card does not exist'
                 status = not_Found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 

@@ -1,8 +1,8 @@
 from rest_framework import serializers
 from ......models.ownership_record_model import OwnsershipRecordCardModel
-from ..serializers.display_records_serializer import DisplayRecordSerializer
+from ..serializers.update_records_serializer import UpdateRecordSerializer
 
-class DisplayOwnershipRecordCardSerializer(serializers.ModelSerializer):
+class UpdateOwnershipRecordCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = OwnsershipRecordCardModel
         fields = ['id', 'name_of_owner', 'address', 'tel_no', 'tin', 
@@ -10,5 +10,5 @@ class DisplayOwnershipRecordCardSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['records'] = DisplayRecordSerializer(instance.recordcardmodel_set.all(),many=True).data
+        rep['records'] = UpdateRecordSerializer(instance.recordcardmodel_set.all(),many=True).data
         return rep

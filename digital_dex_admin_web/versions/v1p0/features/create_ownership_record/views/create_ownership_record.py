@@ -18,10 +18,10 @@ class OwnershipRecordCardView(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        if not request.user.is_authenticated:
+            message = 'You are not logged in'
+            status = unauthorized
+            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
@@ -68,15 +68,15 @@ class OwnershipRecordCardView(APIView):
                     )
                     
             if len(serializer.errors) != 0:
-                errors['exempt_assessment_roll'] = serializer.errors
+                errors['ownership_record'] = serializer.errors
 
             if len(assessment_serializer.errors) != 0:
-                errors['exempt_assessments'] =  assessment_serializer.errors
+                errors['records'] =  assessment_serializer.errors
                 
             status = created
-            message = 'Successfully Created Exempt Assessment Roll'
+            message = 'Successfully Created Ownership Record Card'
             data = serializer.data
-            data['exempt_assessments'] = assessment_serializer.data
+            data['records'] = assessment_serializer.data
         else:
             status = bad_request
             message = 'Invalid Value'
