@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.tax_form_model import TaxForm
+from .......models.tax_form_model import TaxForm
 from .initial_assessment_serializer import InitialAssessmentSerializer
 
 class TaxFormSerializer(serializers.ModelSerializer):

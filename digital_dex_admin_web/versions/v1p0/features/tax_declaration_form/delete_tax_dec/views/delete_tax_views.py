@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 
 ################### Models ##########################
-from ......models.tax_form_model import TaxForm
+from .......models.tax_form_model import TaxForm
 ################### Static Modules ######################
 
 from django.core.exceptions import ObjectDoesNotExist

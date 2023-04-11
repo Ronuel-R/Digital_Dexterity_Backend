@@ -1,10 +1,10 @@
 from rest_framework.views import APIView
 
 ################### Models ##########################
-from ......models.tax_form_model import TaxForm
+from .......models.tax_form_model import TaxForm
 from ...create_tax_form.serializers.tax_form_serializer import TaxFormSerializer
 from ..serializers.display_tax_serializer import DisplayTaxFormSerializer
-from ......models.tax_initial_assessment_model import InitialAssessment
+from .......models.tax_initial_assessment_model import InitialAssessment
 ################### Static Modules ######################
 
 from django.forms.models import model_to_dict

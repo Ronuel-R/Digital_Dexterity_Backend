@@ -1,8 +1,8 @@
 from rest_framework.views import APIView
 
 ################### Models ##########################
-from ......models.tax_form_model import TaxForm
-from ......models.tax_initial_assessment_model import InitialAssessment
+from .......models.tax_form_model import TaxForm
+from .......models.tax_initial_assessment_model import InitialAssessment
 
 ################### Serializer ##########################
 

@@ -1,13 +1,14 @@
 from rest_framework import serializers
-from ......models.tax_form_model import TaxForm
-from .update_initial_assessment_serializer import UpdateInitialAssessmentSerializer
+from .......models.tax_form_model import TaxForm
+from ...create_tax_form.serializers.initial_assessment_serializer import InitialAssessmentSerializer
 
+class DisplayTaxFormSerializer(serializers.ModelSerializer):
+    # initial_assessments = InitialAssessmentSerializer(many=True,required = True)
 
-class UpdateTaxFormSerializer(serializers.ModelSerializer):
-    # initial_assessments = UpdateInitialAssessmentSerializer(many=True)
+    date_assessed = serializers.DateField(required=False)
     class Meta:
         model = TaxForm
-        fields = ['td_no', 'property_identification_no',
+        fields = ['id','td_no', 'property_identification_no',
                   
                   ############## OWNER ########################
                   'owner', 'owner_tin','owner_address','owner_tel_no',
@@ -34,15 +35,12 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   'taxable',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
-                  'year',
-                #   'approved_by',
-                  'date_assessed',
+                  'year','approved_by','date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################
                   'cancels_td_no','cancel_owner','cancel_previous_av_pph','memoranda'
                   ]
-        
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['initial_assessments'] = UpdateInitialAssessmentSerializer(instance.initialassessment_set.all(),many=True).data
+        rep['initial_assessments'] = InitialAssessmentSerializer(instance.initialassessment_set.all(),many=True).data
         return rep
