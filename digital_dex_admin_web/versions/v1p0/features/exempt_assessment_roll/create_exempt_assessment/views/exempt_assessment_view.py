@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from constants.http_messages import *
 from django.utils import timezone
 ############## From Features #############
-from ......models.exempt_assessment_model import ExemptAssessment
-from ......models.exempt_assessment_roll_model import ExemptAssessmentRoll
+from .......models.exempt_assessment_model import ExemptAssessment
+from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from ..serializers.exempt_assessment_serializer import ExemptAssessmentRollSerializer
 from ..serializers.assessment_serializer import AssessmentSerializer
 ############## Helper ################

@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from ......models.exempt_assessment_roll_model import ExemptAssessmentRoll
+from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from ..serializers.display_exempt_assessment_serializer import DisplayTaxMapControlSerializer
 from rest_framework.response import Response
 from constants.http_messages import *

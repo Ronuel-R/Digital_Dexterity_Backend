@@ -1,8 +1,8 @@
 from rest_framework import serializers
-from ......models.exempt_assessment_roll_model import ExemptAssessmentRoll
-from ..serializers.exempt_assessment_serializer import UpdateAssessmentSerializer
+from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
+from ..serializers.display_assessment_serializer import DisplayAssessmentSerializer
 
-class UpdateExemptAssessmentRollSerializer(serializers.ModelSerializer):
+class DisplayTaxMapControlSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExemptAssessmentRoll
         fields = ['prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay', 
@@ -10,5 +10,5 @@ class UpdateExemptAssessmentRollSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['assessments'] = UpdateAssessmentSerializer(instance.exemptassessment_set.all(),many=True).data
+        rep['assessments'] = DisplayAssessmentSerializer(instance.exemptassessment_set.all(),many=True).data
         return rep

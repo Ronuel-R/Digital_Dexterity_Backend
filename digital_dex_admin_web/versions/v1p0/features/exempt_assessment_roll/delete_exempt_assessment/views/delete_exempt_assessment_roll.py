@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from ......models.exempt_assessment_roll_model import ExemptAssessmentRoll
+from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from constants.http_messages import *

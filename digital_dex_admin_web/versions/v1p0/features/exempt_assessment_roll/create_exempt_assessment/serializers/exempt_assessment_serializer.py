@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.exempt_assessment_roll_model import ExemptAssessmentRoll
+from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 
 class ExemptAssessmentRollSerializer(serializers.ModelSerializer):
     class Meta:
