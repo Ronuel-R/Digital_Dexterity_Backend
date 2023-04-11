@@ -17,10 +17,10 @@ from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
-from digital_dex_admin_web.versions.v1p0.features.create_tax_map_control.views import create_tax_map_control_views
-from digital_dex_admin_web.versions.v1p0.features.update_tax_map_control.views import update_tax_map_control_views
-from digital_dex_admin_web.versions.v1p0.features.delete_tax_map_control.views import delete_tax_map_control_views
-from digital_dex_admin_web.versions.v1p0.features.display_tax_map_control.views import display_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.create_tax_map_control.views import create_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.update_tax_map_control.views import update_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.delete_tax_map_control.views import delete_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.display_tax_map_control.views import display_tax_map_control_views
 
 
 urlpatterns = [

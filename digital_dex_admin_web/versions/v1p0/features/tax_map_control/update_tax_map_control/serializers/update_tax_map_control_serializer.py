@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.tax_map_control_model import TaxMapControl
+from .......models.tax_map_control_model import TaxMapControl
 from ..serializers.assessment_serializer import UpdateAssessmentSerializer
 
 class UpdateTaxMapControlSerializer(serializers.ModelSerializer):

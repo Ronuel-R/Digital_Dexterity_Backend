@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.tax_map_control_model import TaxMapControl
+from .......models.tax_map_control_model import TaxMapControl
 
 class CreateTaxMapControlSerializer(serializers.ModelSerializer):
     class Meta:

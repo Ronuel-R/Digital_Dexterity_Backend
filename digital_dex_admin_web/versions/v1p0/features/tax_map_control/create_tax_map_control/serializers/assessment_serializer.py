@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.assessment_model import Assessment
+from .......models.assessment_model import Assessment
 
 class AssessmentSerializer(serializers.ModelSerializer):
     class Meta:

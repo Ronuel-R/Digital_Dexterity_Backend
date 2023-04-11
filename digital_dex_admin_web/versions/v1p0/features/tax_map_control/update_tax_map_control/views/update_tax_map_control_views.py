@@ -1,8 +1,8 @@
 from rest_framework import generics, status
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from ......models.tax_map_control_model import TaxMapControl
-from ......models.assessment_model import Assessment
+from .......models.tax_map_control_model import TaxMapControl
+from .......models.assessment_model import Assessment
 from constants.http_messages import *
 from ..serializers.update_tax_map_control_serializer import UpdateTaxMapControlSerializer
 from ..serializers.assessment_serializer import UpdateAssessmentSerializer
@@ -18,7 +18,7 @@ class UpdateTaxMapControl(APIView):
             id = request.query_params['id']
             tax_map_control = TaxMapControl.objects.get(id=id)
         except TaxMapControl.DoesNotExist:
-            message = 'TaxMapControl instance does not exist'
+            message = 'Tax Map Control instance does not exist'
             status_code = status.HTTP_400_BAD_REQUEST
             return Response({"status_code": status_code, "message": message, "errors": errors})
 

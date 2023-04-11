@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from ......models.tax_map_control_model import TaxMapControl
+from .......models.tax_map_control_model import TaxMapControl
 from ..serializers.display_tax_map_control_serializer import DisplayTaxMapControlSerializer
 from rest_framework.response import Response
 from constants.http_messages import *

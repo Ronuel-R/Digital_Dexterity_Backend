@@ -1,5 +1,5 @@
 from rest_framework.views import APIView
-from ......models.tax_map_control_model import TaxMapControl
+from .......models.tax_map_control_model import TaxMapControl
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from constants.http_messages import *
