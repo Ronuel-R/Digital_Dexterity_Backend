@@ -17,10 +17,15 @@ from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
 from digital_dex_admin_web.versions.v1p0.features.create_ownership_record.views import create_ownership_record
+from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
 from digital_dex_admin_web.versions.v1p0.features.display_ownership_record_card.views import display_ownership_record_card_view
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path("register/", register_views.RegisterAdminView.as_view()),
+    re_path("login/", login_view.LoginAdminView.as_view()),
+    re_path("logout/", logout_view.LogoutAdminView.as_view()),
     re_path("ownership-record/add/", create_ownership_record.OwnershipRecordCardView.as_view()),
     re_path("ownership-record/", display_ownership_record_card_view.DisplayOwnershipRecordCardViews.as_view()),
 ]
+
