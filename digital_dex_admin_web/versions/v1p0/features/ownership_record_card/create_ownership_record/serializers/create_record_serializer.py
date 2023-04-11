@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.record_model import RecordCardModel
+from .......models.record_model import RecordCardModel
 
 class RecordSerializer(serializers.ModelSerializer):
     class Meta:

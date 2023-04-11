@@ -4,8 +4,8 @@ from rest_framework.response import Response
 from constants.http_messages import *
 from django.utils import timezone
 ############## From Features #############
-from ......models.record_model import RecordCardModel
-from ......models.ownership_record_model import OwnsershipRecordCardModel
+from .......models.record_model import RecordCardModel
+from .......models.ownership_record_model import OwnsershipRecordCardModel
 from ..serializers.create_ownership_record_serializer import OwnershipRecordSerializer
 from ..serializers.create_record_serializer import RecordSerializer
 ############## Helper ################

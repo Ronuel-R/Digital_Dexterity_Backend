@@ -1,7 +1,7 @@
 from rest_framework import serializers
-from ......models.record_model import RecordCardModel
+from .......models.record_model import RecordCardModel
 
-class UpdateRecordSerializer(serializers.ModelSerializer):
+class DisplayRecordSerializer(serializers.ModelSerializer):
     class Meta:
         model = RecordCardModel
         fields = ['id','ownership','date_of_entry','kind','class_code','pin','title_no',

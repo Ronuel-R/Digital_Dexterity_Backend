@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ......models.ownership_record_model import OwnsershipRecordCardModel
+from .......models.ownership_record_model import OwnsershipRecordCardModel
 
 class OwnershipRecordSerializer(serializers.ModelSerializer):
     class Meta:

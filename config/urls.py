@@ -16,11 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
-from digital_dex_admin_web.versions.v1p0.features.create_ownership_record.views import create_ownership_record
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
-from digital_dex_admin_web.versions.v1p0.features.display_ownership_record_card.views import display_ownership_record_card_view
-from digital_dex_admin_web.versions.v1p0.features.update_ownership_record_card.views import update_ownership_record_card_view
-from digital_dex_admin_web.versions.v1p0.features.delete_ownership_record_card.views import delete_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.create_ownership_record.views import create_ownership_record
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.display_ownership_record_card.views import display_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.update_ownership_record_card.views import update_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.delete_ownership_record_card.views import delete_ownership_record_card_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
