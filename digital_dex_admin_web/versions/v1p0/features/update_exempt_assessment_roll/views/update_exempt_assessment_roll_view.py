@@ -46,7 +46,7 @@ class UpdateExemptAssessmentRollView(APIView):
                         errors.update(assessment_serializer.errors)
 
             status_code = ok
-            message = 'Successfully updated Tax Map Control'
+            message = 'Successfully updated Exempt Assessment Roll'
             data = serializer.data
         else:
             status_code = bad_request

@@ -22,7 +22,7 @@ class DeleteExemptAssessmentRollViews(APIView):
             try:
                 tax_model = ExemptAssessmentRoll.objects.get(id=id)
             except ObjectDoesNotExist:
-                message = 'TaxForm with id {} does not exist'.format(id)
+                message = 'Exempt Assessment Roll with id {} does not exist'.format(id)
                 status_code = bad_request
                 return Response({"status": status_code, "message": message, "data": data, "errors": errors})
             

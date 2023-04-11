@@ -22,7 +22,7 @@ class DisplayExemptAssessmentRollViews(APIView):
             tax = ExemptAssessmentRoll.objects.filter(id = id).first()
 
             if tax is None:
-                message = 'Tax Declaration Form does not exist'
+                message = 'Exempt Assessment Roll does not exist'
                 status = not_Found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 
