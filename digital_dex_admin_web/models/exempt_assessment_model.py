@@ -1,11 +1,11 @@
 from django.db import models
-from .taxable_assessment_roll_model import TaxableAssessmentRoll
+from .exempt_assessment_roll_model import ExemptAssessmentRoll
 
 
-class TaxableAssessment(models.Model):
+class ExemptAssessment(models.Model):
 
     id = models.AutoField(primary_key=True)
-    tax_assessment_roll = models.ForeignKey(TaxableAssessmentRoll, on_delete=models.CASCADE, null=True)
+    exempt_assessment_roll = models.ForeignKey(ExemptAssessmentRoll, on_delete=models.CASCADE, null=True)
     arpn = models.CharField(max_length=255, null = True)
     td_no = models.CharField(max_length=255, null = True)
     pin = models.IntegerField(null = True)
@@ -22,8 +22,8 @@ class TaxableAssessment(models.Model):
     
 
     class Meta:
-            verbose_name = 'Taxable Assessment'
-            verbose_name_plural = 'Taxable Assessments'
+            verbose_name = 'Exempt Assessment'
+            verbose_name_plural = 'Exempt Assessments'
 
     def __str__(self):
         return str(self.id)

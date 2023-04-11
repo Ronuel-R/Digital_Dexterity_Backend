@@ -1,6 +1,6 @@
 from django.db import models
 
-class TaxableAssessmentRoll(models.Model):
+class ExemptAssessmentRoll(models.Model):
 
     id = models.AutoField(primary_key=True)
     prov_city = models.CharField(max_length=255, null=True)
@@ -10,10 +10,11 @@ class TaxableAssessmentRoll(models.Model):
     barangay = models.CharField(max_length=255, null=True)
     barangay_index_no = models.IntegerField(null=True)
     section_index_no = models.IntegerField(null=True)
+    modified = models.DateTimeField(null = True)
 
     class Meta:
-        verbose_name = 'Taxable Assessment Roll'
-        verbose_name_plural = 'Taxable Assessment Rolls'
+        verbose_name = 'Exempt Assessment Roll'
+        verbose_name_plural = 'Exempt Assessment Rolls'
 
     def __str__(self):
         return str(self.id)

@@ -17,10 +17,19 @@ from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
+from digital_dex_admin_web.versions.v1p0.features.create_exempt_assessment.views import exempt_assessment_view
+from digital_dex_admin_web.versions.v1p0.features.display_exempt_assessment.views import display_exempt_assessment_views
+from digital_dex_admin_web.versions.v1p0.features.update_exempt_assessment_roll.views import update_exempt_assessment_roll_view
+from digital_dex_admin_web.versions.v1p0.features.delete_exempt_assessment.views import delete_exempt_assessment_roll
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path("login/", login_view.LoginAdminView.as_view()),
     re_path("logout/", logout_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
+    re_path("exempt-assessment-roll/add/", exempt_assessment_view.ExemptAssessmentRollView.as_view()),
+    re_path("exempt-assessment-roll/delete/", delete_exempt_assessment_roll.DeleteExemptAssessmentRollViews.as_view()),
+    re_path("exempt-assessment-roll/update/", update_exempt_assessment_roll_view.UpdateExemptAssessmentRollView.as_view()),
+    re_path("exempt-assessment-roll/", display_exempt_assessment_views.DisplayExemptAssessmentRollViews.as_view()),
 ]
