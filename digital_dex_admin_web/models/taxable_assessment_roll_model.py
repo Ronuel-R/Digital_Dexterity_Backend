@@ -10,6 +10,7 @@ class TaxableAssessmentRoll(models.Model):
     barangay = models.CharField(max_length=255, null=True)
     barangay_index_no = models.IntegerField(null=True)
     section_index_no = models.IntegerField(null=True)
+    modified = models.DateField(null=True)
 
     class Meta:
         verbose_name = 'Taxable Assessment Roll'
