@@ -13,8 +13,8 @@ class InitialAssessment(models.Model):
     
 
     class Meta:
-        verbose_name = 'Initial Assessment'
-        verbose_name_plural = 'Initial Assessment'
+        verbose_name = 'Tax Declaration of Real Property Initial Assessment'
+        verbose_name_plural = 'Tax Declaration of Real Property Tax Initial Assessments'
 
     def __str__(self):
         return str(self.id)

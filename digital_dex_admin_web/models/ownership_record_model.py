@@ -12,8 +12,8 @@ class OwnsershipRecordCardModel(models.Model):
     modified = models.DateField(null = True)
 
     class Meta:
-        verbose_name = 'Ownership Record'
-        verbose_name_plural = 'Ownership Records'
+        verbose_name = 'Ownership Record Card'
+        verbose_name_plural = 'Ownership Record Cards'
 
     def __str__(self):
         return str(self.id)

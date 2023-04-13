@@ -21,8 +21,8 @@ class RecordCardModel(models.Model):
     remarks = models.CharField(max_length=255, null = True)
 
     class Meta:
-        verbose_name = 'Record'
-        verbose_name_plural = 'Records'
+        verbose_name = 'Ownership Record'
+        verbose_name_plural = 'Ownership Records'
 
     def __str__(self):
         return str(self.id)

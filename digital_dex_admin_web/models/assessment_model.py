@@ -3,8 +3,6 @@ from .tax_map_control_model import TaxMapControl
 
 
 class Assessment(models.Model):
-
-    
     id = models.AutoField(primary_key=True)
     assessors_lot_no = models.IntegerField(null = True)
     survey_lot_no = models.CharField(max_length=255, null = True)
@@ -21,8 +19,8 @@ class Assessment(models.Model):
     tax_map_control = models.ForeignKey(TaxMapControl, on_delete=models.CASCADE, null=True)
 
     class Meta:
-            verbose_name = 'Assessment'
-            verbose_name_plural = 'Assessments'
+            verbose_name = 'Tax Map Control Assessment'
+            verbose_name_plural = 'Tax Map Control Assessments'
 
     def __str__(self):
         return str(self.id)
