@@ -12,17 +12,17 @@ class DisplayTaxMapControlViews(APIView):
         status = None
         message = None
 
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # if not request.user.is_authenticated:
+        #     message = 'You are not logged in'
+        #     status = unauthorized
+        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         try: 
             id = request.query_params["id"]
             tax = TaxMapControl.objects.filter(id = id).first()
 
             if tax is None:
-                message = 'Tax Declaration Form does not exist'
+                message = 'Tax Map Control does not exist'
                 status = not_Found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 

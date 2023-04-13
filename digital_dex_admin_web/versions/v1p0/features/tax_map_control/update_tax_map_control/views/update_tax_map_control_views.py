@@ -10,7 +10,7 @@ from ..serializers.assessment_serializer import UpdateAssessmentSerializer
 class UpdateTaxMapControl(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
-        status_code = None
+        status = None
         message = None
         errors = {}
 
@@ -18,9 +18,9 @@ class UpdateTaxMapControl(APIView):
             id = request.query_params['id']
             tax_map_control = TaxMapControl.objects.get(id=id)
         except TaxMapControl.DoesNotExist:
-            message = 'Tax Map Control instance does not exist'
-            status_code = status.HTTP_400_BAD_REQUEST
-            return Response({"status_code": status_code, "message": message, "errors": errors})
+            message = 'Tax Map Control does not exist'
+            status = bad_request
+            return Response({"status": status, "message": message, "errors": errors})
 
         serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data)
         if serializer.is_valid():
@@ -45,12 +45,12 @@ class UpdateTaxMapControl(APIView):
                     else:
                         errors.update(assessment_serializer.errors)
 
-            status_code = ok
+            status = ok
             message = 'Successfully updated Tax Map Control'
             data = serializer.data
         else:
-            status_code = bad_request
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
 
-        return Response({"status_code": status_code, "message": message, "data": data, "errors": errors})
+        return Response({"status": status, "message": message, "data": data, "errors": errors})
