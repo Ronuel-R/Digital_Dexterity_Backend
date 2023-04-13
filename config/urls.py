@@ -33,7 +33,10 @@ from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.create_
 from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.display_exempt_assessment.views import display_exempt_assessment_views
 from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.update_exempt_assessment_roll.views import update_exempt_assessment_roll_view
 from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.delete_exempt_assessment.views import delete_exempt_assessment_roll
-
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.create_ownership_record.views import create_ownership_record
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.display_ownership_record_card.views import display_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.update_ownership_record_card.views import update_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.delete_ownership_record_card.views import delete_ownership_record_card_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -56,4 +59,15 @@ urlpatterns = [
     re_path("exempt-assessment-roll/delete/", delete_exempt_assessment_roll.DeleteExemptAssessmentRollViews.as_view()),
     re_path("exempt-assessment-roll/update/", update_exempt_assessment_roll_view.UpdateExemptAssessmentRollView.as_view()),
     re_path("exempt-assessment-roll/", display_exempt_assessment_views.DisplayExemptAssessmentRollViews.as_view()),
+    re_path("ownership-record/add/", create_ownership_record.OwnershipRecordCardView.as_view()),
+    re_path("ownership-record/delete/", delete_ownership_record_card_view.DeleteOwnershipRecordCardViews.as_view()),
+    re_path("ownership-record/update/", update_ownership_record_card_view.UpdateOwnershipRecordCardView.as_view()),
+    re_path("ownership-record/", display_ownership_record_card_view.DisplayOwnershipRecordCardViews.as_view()),
 ]
+
+
+
+
+    
+
+
