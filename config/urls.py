@@ -21,6 +21,10 @@ from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.create_ta
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.display_tax_dec.views import display_tax_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.delete_tax_dec.views import delete_tax_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.update_tax_form.views import update_tax_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.create_tax_map_control.views import create_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.update_tax_map_control.views import update_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.delete_tax_map_control.views import delete_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.tax_map_control.display_tax_map_control.views import display_tax_map_control_views
 
 
 urlpatterns = [
@@ -32,4 +36,9 @@ urlpatterns = [
     re_path("tax-declaration/delete/", delete_tax_views.DeleteTaxDecViews.as_view(), name='delete_tax_dec'),
     re_path("tax-declaration/update/", update_tax_views.UpdateTaxFormViews.as_view(), name='update_tax_dec'),
     re_path("tax-declaration/", display_tax_views.DisplayTaxDecViews.as_view(), name='display_tax_dec'),
+    re_path("tax-map-control/add/", create_tax_map_control_views.CreateTaxMapControlViews.as_view()),
+    re_path("update-tax-map-control/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
+    re_path("tax-map-control/delete/", delete_tax_map_control_views.DeleteTaxMapControlViews.as_view()),
+    re_path("tax-map-control/", display_tax_map_control_views.DisplayTaxMapControlViews.as_view()),
+    
 ]
