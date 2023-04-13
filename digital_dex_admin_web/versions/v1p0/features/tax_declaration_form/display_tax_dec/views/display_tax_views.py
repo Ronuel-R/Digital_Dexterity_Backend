@@ -7,7 +7,6 @@ from ..serializers.display_tax_serializer import DisplayTaxFormSerializer
 from .......models.tax_initial_assessment_model import InitialAssessment
 ################### Static Modules ######################
 
-from django.forms.models import model_to_dict
 from rest_framework.response import Response
 from constants.http_messages import *
 
@@ -19,10 +18,10 @@ class DisplayTaxDecViews(APIView):
         status = None
         message = None
 
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # if not request.user.is_authenticated:
+        #     message = 'You are not logged in'
+        #     status = unauthorized
+        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         try: 
             id = request.query_params["id"]

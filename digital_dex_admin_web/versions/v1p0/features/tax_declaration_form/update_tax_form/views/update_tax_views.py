@@ -10,7 +10,6 @@ from ..serializers.update_tax_serializer import UpdateTaxFormSerializer,UpdateIn
 
 ################### Static Modules ######################
 
-from django.utils import timezone
 from rest_framework.response import Response
 from constants.http_messages import *
 from constants.update_tax_form_helper import UpdateTaxFormHelper
@@ -19,7 +18,7 @@ from constants.update_tax_form_helper import UpdateTaxFormHelper
 class UpdateTaxFormViews(APIView):
       def put(self, request, *args, **kwargs):
         data = {}
-        status_code = None
+        status = None
         message = None
         errors = {}
 
@@ -27,9 +26,9 @@ class UpdateTaxFormViews(APIView):
             id = request.query_params['id']
             tax_id = TaxForm.objects.get(id=id)
         except TaxForm.DoesNotExist:
-            message = 'Tax Form instance does not exist'
-            status_code = bad_request
-            return Response({"status_code": status_code, "message": message, "errors": errors})
+            message = 'Tax Declaration Form does not exist'
+            status = bad_request
+            return Response({"status": status, "message": message, "errors": errors})
 
         serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data)
         if serializer.is_valid():
@@ -54,12 +53,12 @@ class UpdateTaxFormViews(APIView):
                     else:
                         errors.update(assessment_serializer.errors)
 
-            status_code = ok
-            message = 'Successfully updated Tax Form'
+            status = ok
+            message = 'Successfully updated Tax Declaration Form'
             data = serializer.data
         else:
-            status_code = bad_request
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
 
-        return Response({"status_code": status_code, "message": message, "data": data, "errors": errors})
+        return Response({"status": status, "message": message, "data": data, "errors": errors})

@@ -15,13 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path,re_path
-from digital_dex_admin_web.versions.v1p0.features.login.views import login_view
+from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.create_tax_form.views import tax_form_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.display_tax_dec.views import display_tax_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.delete_tax_dec.views import delete_tax_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.update_tax_form.views import update_tax_views
-from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
