@@ -10,7 +10,7 @@ from ..serializers.exempt_assessment_serializer import UpdateAssessmentSerialize
 class UpdateExemptAssessmentRollView(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
-        status_code = None
+        status = None
         message = None
         errors = {}
 
@@ -18,9 +18,9 @@ class UpdateExemptAssessmentRollView(APIView):
             id = request.query_params['id']
             exempt_assessment_roll = ExemptAssessmentRoll.objects.get(id=id)
         except ExemptAssessmentRoll.DoesNotExist:
-            message = 'Exempt Assessment Roll instance does not exist'
-            status_code = bad_request
-            return Response({"status_code": status_code, "message": message, "errors": errors})
+            message = 'Exempt Assessment Roll does not exist'
+            status = bad_request
+            return Response({"status": status, "message": message, "errors": errors})
 
         serializer = UpdateExemptAssessmentRollSerializer(instance=exempt_assessment_roll, data=request.data)
         if serializer.is_valid():
@@ -45,12 +45,12 @@ class UpdateExemptAssessmentRollView(APIView):
                     else:
                         errors.update(assessment_serializer.errors)
 
-            status_code = ok
+            status = ok
             message = 'Successfully updated Exempt Assessment Roll'
             data = serializer.data
         else:
-            status_code = bad_request
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
 
-        return Response({"status_code": status_code, "message": message, "data": data, "errors": errors})
+        return Response({"status": status, "message": message, "data": data, "errors": errors})
