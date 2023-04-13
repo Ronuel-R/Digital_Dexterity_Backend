@@ -10,7 +10,7 @@ from ..serializers.update_records_serializer import UpdateRecordSerializer
 class UpdateOwnershipRecordCardView(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
-        status_code = None
+        status = None
         message = None
         errors = {}
 
@@ -20,12 +20,12 @@ class UpdateOwnershipRecordCardView(APIView):
                 exempt_assessment_roll = OwnsershipRecordCardModel.objects.get(id=id)
             else:
                 message = 'ID is not provided'
-                status_code = bad_request
-                return Response({"status_code": status_code, "message": message, "errors": errors})
+                status = bad_request
+                return Response({"status": status, "message": message, "errors": errors})
         except OwnsershipRecordCardModel.DoesNotExist:
             message = 'Exempt Assessment Roll instance does not exist'
-            status_code = bad_request
-            return Response({"status_code": status_code, "message": message, "errors": errors})
+            status = bad_request
+            return Response({"status": status, "message": message, "errors": errors})
 
         serializer = UpdateOwnershipRecordCardSerializer(instance=exempt_assessment_roll, data=request.data)
         if serializer.is_valid():
@@ -50,12 +50,12 @@ class UpdateOwnershipRecordCardView(APIView):
                     else:
                         errors.update(assessment_serializer.errors)
 
-            status_code = ok
+            status = ok
             message = 'Successfully updated Ownership Record Card'
             data = serializer.data
         else:
-            status_code = bad_request
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
 
-        return Response({"status_code": status_code, "message": message, "data": data, "errors": errors})
+        return Response({"status": status, "message": message, "data": data, "errors": errors})
