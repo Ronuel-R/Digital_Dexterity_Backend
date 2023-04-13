@@ -158,4 +158,3 @@ STATIC_ROOT='/home/WUP/Digital_Dexterity_Backend/static'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
-

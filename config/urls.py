@@ -25,6 +25,10 @@ from digital_dex_admin_web.versions.v1p0.features.tax_map_control.create_tax_map
 from digital_dex_admin_web.versions.v1p0.features.tax_map_control.update_tax_map_control.views import update_tax_map_control_views
 from digital_dex_admin_web.versions.v1p0.features.tax_map_control.delete_tax_map_control.views import delete_tax_map_control_views
 from digital_dex_admin_web.versions.v1p0.features.tax_map_control.display_tax_map_control.views import display_tax_map_control_views
+from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.create_taxable_assessment_roll.views import create_taxable_assessment_roll_views
+from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.delete_taxable_assessment_roll.views import delete_taxable_assessment_roll_views
+from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.display_taxable_assessment_roll.views import display_taxable_assessment_roll_views
+from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.update_taxable_assessment_roll.views import update_taxable_assessment_roll_views
 
 
 urlpatterns = [
@@ -40,5 +44,8 @@ urlpatterns = [
     re_path("update-tax-map-control/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
     re_path("tax-map-control/delete/", delete_tax_map_control_views.DeleteTaxMapControlViews.as_view()),
     re_path("tax-map-control/", display_tax_map_control_views.DisplayTaxMapControlViews.as_view()),
-    
+    re_path("taxable-assessment-roll/create/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
+    re_path("taxable-assessment-roll/delete/", delete_taxable_assessment_roll_views.DeleteTaxableAssessmentRollViews.as_view()),
+    re_path("taxable-assessment-roll/update/", update_taxable_assessment_roll_views.UpdateTaxAssessmentRollView.as_view()),
+    re_path("taxable-assessment-roll/", display_taxable_assessment_roll_views.DisplayTaxAssessmentRollViews.as_view()),
 ]
