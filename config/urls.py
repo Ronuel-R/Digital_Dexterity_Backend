@@ -29,6 +29,10 @@ from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.create
 from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.delete_taxable_assessment_roll.views import delete_taxable_assessment_roll_views
 from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.display_taxable_assessment_roll.views import display_taxable_assessment_roll_views
 from digital_dex_admin_web.versions.v1p0.features.taxable_assessment_roll.update_taxable_assessment_roll.views import update_taxable_assessment_roll_views
+from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.create_exempt_assessment.views import exempt_assessment_view
+from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.display_exempt_assessment.views import display_exempt_assessment_views
+from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.update_exempt_assessment_roll.views import update_exempt_assessment_roll_view
+from digital_dex_admin_web.versions.v1p0.features.exempt_assessment_roll.delete_exempt_assessment.views import delete_exempt_assessment_roll
 
 
 urlpatterns = [
@@ -48,4 +52,8 @@ urlpatterns = [
     re_path("taxable-assessment-roll/delete/", delete_taxable_assessment_roll_views.DeleteTaxableAssessmentRollViews.as_view()),
     re_path("taxable-assessment-roll/update/", update_taxable_assessment_roll_views.UpdateTaxAssessmentRollView.as_view()),
     re_path("taxable-assessment-roll/", display_taxable_assessment_roll_views.DisplayTaxAssessmentRollViews.as_view()),
+    re_path("exempt-assessment-roll/add/", exempt_assessment_view.ExemptAssessmentRollView.as_view()),
+    re_path("exempt-assessment-roll/delete/", delete_exempt_assessment_roll.DeleteExemptAssessmentRollViews.as_view()),
+    re_path("exempt-assessment-roll/update/", update_exempt_assessment_roll_view.UpdateExemptAssessmentRollView.as_view()),
+    re_path("exempt-assessment-roll/", display_exempt_assessment_views.DisplayExemptAssessmentRollViews.as_view()),
 ]
