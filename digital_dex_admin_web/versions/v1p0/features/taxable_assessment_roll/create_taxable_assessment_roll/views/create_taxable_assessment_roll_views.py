@@ -18,10 +18,10 @@ class CreateTaxableAssessmentRollView(APIView):
         status = None
         message = None
 
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # if not request.user.is_authenticated:
+        #     message = 'You are not logged in'
+        #     status = unauthorized
+        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
@@ -70,12 +70,12 @@ class CreateTaxableAssessmentRollView(APIView):
                 errors['tax_assessment_roll'] = serializer.errors
 
             if len(assessment_serializer.errors) != 0:
-                errors['taxable_assessments'] =  assessment_serializer.errors
+                errors['assessments'] =  assessment_serializer.errors
                 
             status = created
             message = 'Successfully Created Tax Assessment Roll'
             data = serializer.data
-            data['taxable_assessments'] = assessment_serializer.data
+            data['assessments'] = assessment_serializer.data
         else:
             status = bad_request
             message = 'Invalid Value'

@@ -12,10 +12,10 @@ class DeleteTaxableAssessmentRollViews(APIView):
         status = None
         message = None
 
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # if not request.user.is_authenticated:
+        #     message = 'You are not logged in'
+        #     status = unauthorized
+        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
         
         if "id" in request.query_params:
             id = request.query_params["id"]
@@ -23,8 +23,8 @@ class DeleteTaxableAssessmentRollViews(APIView):
                 tax_model = TaxableAssessmentRoll.objects.get(id=id)
             except ObjectDoesNotExist:
                 message = 'Tax Assessment Roll with id {} does not exist'.format(id)
-                status_code = bad_request
-                return Response({"status": status_code, "message": message, "data": data, "errors": errors})
+                status = bad_request
+                return Response({"status": status, "message": message, "data": data, "errors": errors})
             
             tax_model.delete()
 

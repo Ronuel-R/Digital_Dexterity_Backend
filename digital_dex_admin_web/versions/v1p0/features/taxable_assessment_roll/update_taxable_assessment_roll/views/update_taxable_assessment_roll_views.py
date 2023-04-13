@@ -10,7 +10,7 @@ from ..serializers.update_taxable_assessment_roll_serializer import UpdateTaxAss
 class UpdateTaxAssessmentRollView(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
-        status_code = None
+        status = None
         message = None
         errors = {}
 
@@ -18,9 +18,9 @@ class UpdateTaxAssessmentRollView(APIView):
             id = request.query_params['id']
             tax_assessment_roll = TaxableAssessmentRoll.objects.get(id=id)
         except TaxableAssessmentRoll.DoesNotExist:
-            message = 'Tax Assessment Roll instance does not exist'
-            status_code = bad_request
-            return Response({"status_code": status_code, "message": message, "errors": errors})
+            message = 'Tax Assessment Roll does not exist'
+            status = bad_request
+            return Response({"status": status, "message": message, "errors": errors})
 
         serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data)
         if serializer.is_valid():
@@ -45,12 +45,12 @@ class UpdateTaxAssessmentRollView(APIView):
                     else:
                         errors.update(assessment_serializer.errors)
 
-            status_code = ok
+            status = ok
             message = 'Successfully updated Tax Assessment Roll'
             data = serializer.data
         else:
-            status_code = bad_request
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
 
-        return Response({"status_code": status_code, "message": message, "data": data, "errors": errors})
+        return Response({"status": status, "message": message, "data": data, "errors": errors})
