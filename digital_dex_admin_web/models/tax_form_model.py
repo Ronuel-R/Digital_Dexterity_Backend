@@ -47,12 +47,9 @@ class TaxForm(models.Model):
         ('O', 'Others'),
     )
     property_choices = models.CharField(max_length=1, choices=PROPERTY_CHOICES, null = True)
-
     mach_brief_description = models.TextField(max_length=255,null=True)
-
     no_of_storeys = models.IntegerField(null=True)
     brief_description = models.TextField(max_length=255,null=True)
-
     specify= models.TextField(max_length=255,null=True)
 
 ############## INITIAL ASSESSMENT #########
@@ -68,12 +65,12 @@ class TaxForm(models.Model):
         ('T', 'Taxable'),
         ('E', 'Exempt'),
     )
-    taxable = models.CharField(max_length=1, choices=TAXABLE_CHOICES, null = True)
+    tax_status = models.CharField(max_length=1, choices=TAXABLE_CHOICES, null = True)
 
 ############# EFFECTIVITY OF ASSESSMENT ############
 
     qtr = models.IntegerField(null=True)
-    year = models.DateField(max_length=255,null=True)
+    year = models.IntegerField(null=True)
     approved_by = models.CharField(null=True,max_length=255)
     date_assessed = models.DateField(null=False)
 
@@ -81,8 +78,14 @@ class TaxForm(models.Model):
 
     cancels_td_no = models.CharField(null=True,max_length=255)
     cancel_owner = models.CharField(max_length=255,null=True)
-    cancel_previous_av_pph = models.CharField(max_length=255,null=True)
+    cancel_previous_av_php = models.IntegerField(null=True)
     memoranda = models.TextField(max_length=255,null=True)
+
+################# Notes #######################
+
+    sanggunian = models.CharField(max_length=255,null=True)
+    under_ord_num = models.IntegerField(null=True)
+    notes_date = models.DateField(null=False)
 
 ############# Date Modified ########################
     STATUS_CHOICES = (
