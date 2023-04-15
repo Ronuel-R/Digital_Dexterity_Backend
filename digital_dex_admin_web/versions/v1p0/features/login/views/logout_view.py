@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from django.contrib.auth import logout
 
+import jwt
 ############ CONSTANTS ##################
 
 from constants.http_messages import *
@@ -13,19 +13,26 @@ class LogoutAdminView(APIView):
         status = None
         message = None
 
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
-        
-        try:
+        token = request.COOKIES.get('jwt')
 
-            logout(request)
-            status = ok
-            message = 'Logged out Successfully'
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        if not token:
+            errors = 'Invalid token'
+            status = bad_request
+            message = 'You are not logged in'
+            return Response({"status": status, "message": message, "data": data, "errors": errors})
+
+        try:
+            response = Response()
+            response.delete_cookie('jwt')
+            response.data = {
+                'status' : ok,
+                'Message': 'Logout Successfully',
+                'data' : data,
+                'errors' : errors 
+            }
+            return response
         
         except Exception as e:
-            message = 'Internal 500 error'
-            status = internal_server_error
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+            message = 'Internal server error'
+            status_code = internal_server_error
+            return Response({"status": status_code, "message": message, "data": data, "errors": errors})
