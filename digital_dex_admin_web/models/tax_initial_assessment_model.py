@@ -5,12 +5,12 @@ class InitialAssessment(models.Model):
     id = models.AutoField(primary_key=True)
     tax_form = models.ForeignKey(TaxForm , on_delete= models.CASCADE, null=True)
     classification = models.CharField(max_length=255,null=True)
-    area = models.FloatField(null=True)
-    market_value = models.FloatField(null=True)
+    area = models.FloatField(default=0.0)
+    market_value = models.FloatField(default=0.0)
     actual_use = models.CharField(max_length=255,null=True)
-    assessment_level = models.FloatField(null=True)
-    assessed_value = models.FloatField(null=True)
-    
+    assessment_level = models.FloatField(default=0.0)
+    assessed_value = models.FloatField(default=0.0)
+
 
     class Meta:
         verbose_name = 'Tax Declaration of Real Property Initial Assessment'

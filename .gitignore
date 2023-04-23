@@ -1,5 +1,6 @@
 venv/
 media/
+static/
 *.py[c]
 digital_dex_admin_web/migrations/*.py
 !*/migrations/init.py

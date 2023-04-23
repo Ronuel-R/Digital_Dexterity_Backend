@@ -51,7 +51,7 @@ urlpatterns = [
     re_path("update-tax-map-control/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
     re_path("tax-map-control/delete/", delete_tax_map_control_views.DeleteTaxMapControlViews.as_view()),
     re_path("tax-map-control/", display_tax_map_control_views.DisplayTaxMapControlViews.as_view()),
-    re_path("taxable-assessment-roll/create/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
+    re_path("taxable-assessment-roll/add/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
     re_path("taxable-assessment-roll/delete/", delete_taxable_assessment_roll_views.DeleteTaxableAssessmentRollViews.as_view()),
     re_path("taxable-assessment-roll/update/", update_taxable_assessment_roll_views.UpdateTaxAssessmentRollView.as_view()),
     re_path("taxable-assessment-roll/", display_taxable_assessment_roll_views.DisplayTaxAssessmentRollViews.as_view()),

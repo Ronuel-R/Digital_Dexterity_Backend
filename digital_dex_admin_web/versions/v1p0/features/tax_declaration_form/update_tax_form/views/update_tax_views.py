@@ -22,6 +22,16 @@ class UpdateTaxFormViews(APIView):
         message = None
         errors = {}
 
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+        
         try:
             id = request.query_params['id']
             tax_id = TaxForm.objects.get(id=id)

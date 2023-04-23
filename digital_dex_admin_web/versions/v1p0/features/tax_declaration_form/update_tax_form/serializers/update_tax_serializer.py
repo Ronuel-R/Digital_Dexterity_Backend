@@ -4,7 +4,6 @@ from .update_initial_assessment_serializer import UpdateInitialAssessmentSeriali
 
 
 class UpdateTaxFormSerializer(serializers.ModelSerializer):
-    # initial_assessments = UpdateInitialAssessmentSerializer(many=True)
     class Meta:
         model = TaxForm
         fields = ['td_no', 'property_identification_no',
@@ -25,17 +24,16 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   'property_choices','no_of_storeys','brief_description',
 
                   ############## INITIAL ASSESSMENT #########
-                #   'initial_assessments',
-                  'total_assessed_value',
                   'total_assessed_value_words',
-                  'total_market_value',
+                  # 'total_assessed_value',
+                  # 'total_market_value',
                   
                   ############# FINAL ASSESSMENT ############
                   'taxable',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
                   'year',
-                #   'approved_by',
+                  'approved_by',
                   'date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################

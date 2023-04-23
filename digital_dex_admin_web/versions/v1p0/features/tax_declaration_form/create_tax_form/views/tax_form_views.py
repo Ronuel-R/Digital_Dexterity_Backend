@@ -13,8 +13,9 @@ from ..serializers.initial_assessment_serializer import InitialAssessmentSeriali
 
 from rest_framework.response import Response
 from constants.http_messages import *
+from constants.auth_user import AuthUser
 from constants.tax_form_helper import TaxFormHelper
-
+import jwt
 
 class TaxFormViews(APIView):
     def post(self, request):
@@ -23,11 +24,16 @@ class TaxFormViews(APIView):
         status = None
         message = None
         
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
-        
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+
         errors = TaxFormHelper.validate_fields(self, request)
 
         if len(errors) != 0:
@@ -36,7 +42,7 @@ class TaxFormViews(APIView):
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         serializer = TaxFormSerializer(data=request.data)
-       
+
         if serializer.is_valid():
             tax_declaration_form = TaxForm.objects.create(
 
@@ -75,11 +81,11 @@ class TaxFormViews(APIView):
                 south = request.data['south'],
 
                 ############## INITIAL ASSESSMENT ################
-                
-                total_assessed_value = request.data['total_assessed_value'],
-                total_market_value = request.data['total_market_value'],
+
+                # total_assessed_value = request.data['total_assessed_value'],
+                # total_market_value = request.data['total_market_value'],
                 total_assessed_value_words = request.data['total_assessed_value_words'],
-                
+
 
                 ############## KIND OF PROPERTY ############
 
@@ -115,22 +121,22 @@ class TaxFormViews(APIView):
                 notes_date = request.data['notes_date'],
 
             )
-            
+
             tax_declaration_form.save()
             ############## INITIAL ASSESSMENT ################
             initial_assessment_serializer = InitialAssessmentSerializer(data=request.data['initial_assessments'],many=True)
-            
-            # if initial_assessment_serializer.is_valid():
-            #     for initial_assessment in request.data['initial_assessments']:
-            #         InitialAssessment.objects.create(
-            #             tax_form = tax_declaration_form,
-            #             classification = initial_assessment['classification'],
-            #             area = initial_assessment['area'],
-            #             market_value = initial_assessment['market_value'],
-            #             actual_use = initial_assessment['actual_use'],
-            #             assessment_level = initial_assessment['assessment_level'],
-            #             assessed_value = initial_assessment['assessed_value'],
-            #         )
+
+            if initial_assessment_serializer.is_valid():
+                for initial_assessment in request.data['initial_assessments']:
+                    InitialAssessment.objects.create(
+                        tax_form = tax_declaration_form,
+                        classification = initial_assessment['classification'],
+                        area = initial_assessment['area'],
+                        market_value = initial_assessment['market_value'],
+                        actual_use = initial_assessment['actual_use'],
+                        assessment_level = initial_assessment['assessment_level'],
+                        assessed_value = initial_assessment['assessed_value'],
+                    )
 
             if len(serializer.errors) != 0:
                 errors['tax_form'] = serializer.errors
@@ -140,11 +146,10 @@ class TaxFormViews(APIView):
             message = 'Successfuly Registered Tax Declaration'
             data = serializer.data
             data['initial_assessment'] = initial_assessment_serializer.data
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         else:
             status = ok
             message = 'Invalid Value'
             errors = serializer.errors
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         

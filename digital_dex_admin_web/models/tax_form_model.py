@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.utils import timezone
 
 def upload_signature_approval_location(instance, filename):
-    
+
     new_file = filename
     return 'Approved By/%s' % (new_file)
 
@@ -34,10 +34,10 @@ class TaxForm(models.Model):
     blk_no = models.IntegerField(null=True)
 
 ############## BOUNDARY ###################
-    north = models.FloatField(max_length=255,null=True)
-    west = models.FloatField(max_length=255,null=True)
-    east = models.FloatField(max_length=255,null=True)
-    south = models.FloatField(max_length=255,null=True)
+    north = models.CharField(max_length=255,null=True)
+    west = models.CharField(max_length=255,null=True)
+    east = models.CharField(max_length=255,null=True)
+    south = models.CharField(max_length=255,null=True)
 
 ############## KIND OF PROPERT ############
     PROPERTY_CHOICES = (
@@ -47,18 +47,16 @@ class TaxForm(models.Model):
         ('O', 'Others'),
     )
     property_choices = models.CharField(max_length=1, choices=PROPERTY_CHOICES, null = True)
-    mach_brief_description = models.TextField(max_length=255,null=True)
-    no_of_storeys = models.IntegerField(null=True)
-    brief_description = models.TextField(max_length=255,null=True)
-    specify= models.TextField(max_length=255,null=True)
+    mach_brief_description = models.TextField(max_length=255,null=True,blank=True)
+    no_of_storeys = models.TextField(max_length=255,null=True,blank=True)
+    brief_description = models.TextField(max_length=255,null=True,blank=True)
+    specify= models.TextField(max_length=255,null=True,blank=True)
 
 ############## INITIAL ASSESSMENT #########
 
-    # initial_assessments = models.ManyToManyField(InitialAssessment)
-
     total_assessed_value_words = models.CharField(max_length=255,null=True)
-    total_assessed_value = models.FloatField(null=True)
-    total_market_value = models.FloatField(null=True)
+    # total_assessed_value = models.FloatField(null=True)
+    # total_market_value = models.FloatField(null=True)
 
 ############# FINAL ASSESSMENT ############
     TAXABLE_CHOICES = (
@@ -85,7 +83,7 @@ class TaxForm(models.Model):
 
     sanggunian = models.CharField(max_length=255,null=True)
     under_ord_num = models.IntegerField(null=True)
-    notes_date = models.DateField(null=False)
+    notes_date = models.DateField(null=True)
 
 ############# Date Modified ########################
     STATUS_CHOICES = (

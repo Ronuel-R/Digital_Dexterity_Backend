@@ -4,22 +4,21 @@ from .initial_assessment_serializer import InitialAssessmentSerializer
 from datetime import datetime
 
 class TaxFormSerializer(serializers.ModelSerializer):
-    # initial_assessments = InitialAssessmentSerializer(many=True, required = True)
     dated = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
     date_assessed = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
     notes_date = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
-    no_of_storeys = serializers.IntegerField(required=False)
-    brief_description = serializers.CharField(required=False)
-    specify = serializers.CharField(required=False)
+    no_of_storeys = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    brief_description = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    specify = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     property_choices = serializers.ChoiceField(required=False, choices=[(('L', 'Land')),('B', 'Building'), ('M', 'Machinery'), ('O', 'Others')])
     tax_status = serializers.ChoiceField(required=False, choices=[(('T', 'Taxable')),('E', 'Exempt')])
     class Meta:
         model = TaxForm
         fields = ['id','td_no', 'property_identification_no',
-                  
+
                   ############## OWNER ########################
                   'owner', 'owner_tin','owner_address','owner_tel_no',
-                  
+
                   ############## Admin ####################
                   'administrator_beneficial_user', 'admin_tin', 'admin_tel_no',
                   'admin_address',
@@ -30,16 +29,15 @@ class TaxFormSerializer(serializers.ModelSerializer):
 
                   ############## BOUNDARY ###################
                   'north','west','east','south',
-                  
+
                   ############## KIND OF PROPERTY ############
                   'property_choices','no_of_storeys','brief_description','specify',
 
                   ############## INITIAL ASSESSMENT #########
-                  # 'initial_assessments',
-                  'total_assessed_value',
+                #   'total_assessed_value',
                   'total_assessed_value_words',
-                  'total_market_value',
-                  
+                #   'total_market_value',
+
                   ############# FINAL ASSESSMENT ############
                   'tax_status',
 
@@ -55,7 +53,12 @@ class TaxFormSerializer(serializers.ModelSerializer):
                   'sanggunian','under_ord_num','notes_date'
 
                   ]
-        
+        extra_kwargs = {
+        "no_of_storeys": {"required": False},
+        "brief_description": {"required": False},
+        "specify": {"required": False}
+    }
+
 def validate_dated(self, value):
     # Convert the date string to a date object
     date_obj = datetime.strptime(value, '%Y-%m-%d').date()
