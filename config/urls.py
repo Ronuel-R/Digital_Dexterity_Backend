@@ -28,7 +28,7 @@ urlpatterns = [
     re_path("login/", login_view.LoginAdminView.as_view()),
     re_path("logout/", logout_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
-    re_path("taxable-assessment-roll/create/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
+    re_path("taxable-assessment-roll/add/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
     re_path("taxable-assessment-roll/delete/", delete_taxable_assessment_roll_views.DeleteTaxableAssessmentRollViews.as_view()),
     re_path("taxable-assessment-roll/update/", update_taxable_assessment_roll_views.UpdateTaxAssessmentRollView.as_view()),
     re_path("taxable-assessment-roll/", display_taxable_assessment_roll_views.DisplayTaxAssessmentRollViews.as_view()),
