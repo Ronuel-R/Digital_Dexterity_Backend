@@ -3,9 +3,9 @@ from rest_framework.views import APIView
 from .......models.taxable_assessment_roll_model import TaxableAssessmentRoll
 from .......models.taxable_assessment_model import TaxableAssessment
 from constants.http_messages import *
-from ..serializers.updata_assessment_serializer import UpdateAssessmentSerializer
+from ..serializers.update_assessment_serializer import UpdateAssessmentSerializer
 from ..serializers.update_taxable_assessment_roll_serializer import UpdateTaxAssessmentRollSerializer
-
+from django.utils import timezone
 
 class UpdateTaxAssessmentRollView(APIView):
     def put(self, request, *args, **kwargs):
@@ -21,7 +21,8 @@ class UpdateTaxAssessmentRollView(APIView):
             message = 'Tax Assessment Roll does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-
+        request.data['date_modified'] = timezone.now(),
+        print(request.data['date_modified'])
         serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data)
         if serializer.is_valid():
             serializer.save()

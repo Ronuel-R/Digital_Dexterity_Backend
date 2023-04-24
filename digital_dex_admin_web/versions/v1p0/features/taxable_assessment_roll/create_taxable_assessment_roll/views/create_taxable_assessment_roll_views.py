@@ -22,7 +22,7 @@ class CreateTaxableAssessmentRollView(APIView):
         #     message = 'You are not logged in'
         #     status = unauthorized
         #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
-        
+
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
         # if len(errors) != 0:
@@ -34,14 +34,17 @@ class CreateTaxableAssessmentRollView(APIView):
 
         if serializer.is_valid():
             create_tax_assessment_roll_obj = TaxableAssessmentRoll.objects.create(
+                revision_year = request.data['revision_year'],
                 prov_city = request.data['prov_city'],
                 prov_city_index_no = request.data['prov_city_index_no'],
                 mun_city = request.data['mun_city'],
                 mun_city_index_no = request.data['mun_city_index_no'],
                 barangay = request.data['barangay'],
                 barangay_index_no = request.data['barangay_index_no'],
+                section = request.data['section'],
                 section_index_no = request.data['section_index_no'],
-                modified = timezone.now(),
+                date_prepared = request.data['date_prepared'],
+                date_modified = timezone.now(),
             )
             create_tax_assessment_roll_obj.save()
 
@@ -65,13 +68,13 @@ class CreateTaxableAssessmentRollView(APIView):
                         effectivity = validated_tax_assessment['effectivity'],
                         remarks = validated_tax_assessment['remarks']
                     )
-                    
+
             if len(serializer.errors) != 0:
                 errors['tax_assessment_roll'] = serializer.errors
 
             if len(assessment_serializer.errors) != 0:
                 errors['assessments'] =  assessment_serializer.errors
-                
+
             status = created
             message = 'Successfully Created Tax Assessment Roll'
             data = serializer.data
@@ -82,5 +85,5 @@ class CreateTaxableAssessmentRollView(APIView):
             errors = serializer.errors
 
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        return Response({"status": status , "message": message ,  "data": data , "errors": errors})  
+
+        return Response({"status": status , "message": message ,  "data": data , "errors": errors})
