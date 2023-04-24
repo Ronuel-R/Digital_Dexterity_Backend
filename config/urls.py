@@ -29,7 +29,7 @@ urlpatterns = [
     re_path("logout/", login_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
     re_path("tax-map-control/add/", create_tax_map_control_views.CreateTaxMapControlViews.as_view()),
-    re_path("update-tax-map-control/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
+    re_path("tax-map-control/update/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
     re_path("tax-map-control/delete/", delete_tax_map_control_views.DeleteTaxMapControlViews.as_view()),
     re_path("tax-map-control/", display_tax_map_control_views.DisplayTaxMapControlViews.as_view()),
     

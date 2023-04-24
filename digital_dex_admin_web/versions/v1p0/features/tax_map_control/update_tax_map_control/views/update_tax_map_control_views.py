@@ -6,7 +6,7 @@ from .......models.assessment_model import Assessment
 from constants.http_messages import *
 from ..serializers.update_tax_map_control_serializer import UpdateTaxMapControlSerializer
 from ..serializers.assessment_serializer import UpdateAssessmentSerializer
-
+from django.utils import timezone
 class UpdateTaxMapControl(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
@@ -21,7 +21,7 @@ class UpdateTaxMapControl(APIView):
             message = 'Tax Map Control does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-
+        request.data['date_modified'] = timezone.now()
         serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data)
         if serializer.is_valid():
             tax_map_control = serializer.save()
