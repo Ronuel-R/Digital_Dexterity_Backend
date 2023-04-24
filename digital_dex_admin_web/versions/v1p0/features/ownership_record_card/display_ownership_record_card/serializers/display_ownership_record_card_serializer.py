@@ -11,4 +11,5 @@ class DisplayOwnershipRecordCardSerializer(serializers.ModelSerializer):
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['records'] = DisplayRecordSerializer(instance.recordcardmodel_set.all(),many=True).data
+        rep['total_records'] = instance.recordcardmodel_set.count()
         return rep
