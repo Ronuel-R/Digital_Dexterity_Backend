@@ -6,11 +6,11 @@ from .update_initial_assessment_serializer import UpdateInitialAssessmentSeriali
 class UpdateTaxFormSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaxForm
-        fields = ['td_no', 'property_identification_no',
-                  
+        fields = ['id','td_no', 'property_identification_no',
+
                   ############## OWNER ########################
                   'owner', 'owner_tin','owner_address','owner_tel_no',
-                  
+
                   ############## Admin ####################
                   'administrator_beneficial_user', 'admin_tin', 'admin_tel_no',
 
@@ -19,25 +19,32 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   'survey_no','cct','lot_no','dated','blk_no',
                   ############## BOUNDARY ###################
                   'north','west','east','south',
-                  
+
                   ############## KIND OF PROPERTY ############
                   'property_choices','no_of_storeys','brief_description',
 
                   ############## INITIAL ASSESSMENT #########
-                  'total_assessed_value_words',
                   # 'total_assessed_value',
                   # 'total_market_value',
-                  
+                  'total_assessed_value_words',
+
+
                   ############# FINAL ASSESSMENT ############
-                  'taxable',
+                  'tax_status',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
-                  'year',
-                  'approved_by',
-                  'date_assessed',
+                  'year','approved_by','date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################
-                  'cancels_td_no','cancel_owner','cancel_previous_av_pph','memoranda'
+                  'cancels_td_no','cancel_owner','cancel_previous_av_php',
+                  'memoranda',
+
+                  ############# Notes ######################
+                  'sanggunian','under_ord_num','notes_date',
+
+                  ############ Static ######################
+                  'date_modified'
+
                   ]
         
     def to_representation(self, instance):

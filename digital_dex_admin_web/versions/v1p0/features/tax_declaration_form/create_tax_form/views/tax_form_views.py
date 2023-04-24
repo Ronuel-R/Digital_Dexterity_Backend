@@ -16,6 +16,7 @@ from constants.http_messages import *
 from constants.auth_user import AuthUser
 from constants.tax_form_helper import TaxFormHelper
 import jwt
+from django.utils import timezone
 
 class TaxFormViews(APIView):
     def post(self, request):
@@ -119,7 +120,7 @@ class TaxFormViews(APIView):
                 sanggunian = request.data['sanggunian'],
                 under_ord_num = request.data['under_ord_num'],
                 notes_date = request.data['notes_date'],
-
+                date_modified = timezone.now()
             )
 
             tax_declaration_form.save()

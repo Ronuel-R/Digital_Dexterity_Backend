@@ -50,8 +50,10 @@ class TaxFormSerializer(serializers.ModelSerializer):
                   'cancels_td_no','cancel_owner','cancel_previous_av_php','memoranda',
 
                   ############# Notes ######################
-                  'sanggunian','under_ord_num','notes_date'
+                  'sanggunian','under_ord_num','notes_date',
 
+                  ############ Static ######################
+                  'date_modified'
                   ]
         extra_kwargs = {
         "no_of_storeys": {"required": False},

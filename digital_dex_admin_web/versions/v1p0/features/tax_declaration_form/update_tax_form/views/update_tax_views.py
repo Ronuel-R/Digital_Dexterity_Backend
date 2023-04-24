@@ -13,7 +13,7 @@ from ..serializers.update_tax_serializer import UpdateTaxFormSerializer,UpdateIn
 from rest_framework.response import Response
 from constants.http_messages import *
 from constants.update_tax_form_helper import UpdateTaxFormHelper
-
+from django.utils import timezone
 
 class UpdateTaxFormViews(APIView):
       def put(self, request, *args, **kwargs):
@@ -39,7 +39,7 @@ class UpdateTaxFormViews(APIView):
             message = 'Tax Declaration Form does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-
+        request.data['date_modified'] = timezone.now()
         serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data)
         if serializer.is_valid():
             initial_assessment = serializer.save()

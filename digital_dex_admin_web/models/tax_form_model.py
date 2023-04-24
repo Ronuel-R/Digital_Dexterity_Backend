@@ -91,7 +91,7 @@ class TaxForm(models.Model):
         ('P', 'Processing'),
     )
     date_modified = models.DateField(null = True)
-    created = models.DateTimeField(default=timezone.now, null=False,editable=False)
+    created = models.DateField(default=timezone.now, null=False,editable=False)
     status_choices = models.CharField(max_length=1, choices=STATUS_CHOICES, null = True)
 
     class Meta:
