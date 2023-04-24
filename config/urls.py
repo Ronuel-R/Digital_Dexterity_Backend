@@ -48,7 +48,7 @@ urlpatterns = [
     re_path("tax-declaration/update/", update_tax_views.UpdateTaxFormViews.as_view(), name='update_tax_dec'),
     re_path("tax-declaration/", display_tax_views.DisplayTaxDecViews.as_view(), name='display_tax_dec'),
     re_path("tax-map-control/add/", create_tax_map_control_views.CreateTaxMapControlViews.as_view()),
-    re_path("update-tax-map-control/", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
+    re_path("tax-map-control/update", update_tax_map_control_views.UpdateTaxMapControl.as_view()),
     re_path("tax-map-control/delete/", delete_tax_map_control_views.DeleteTaxMapControlViews.as_view()),
     re_path("tax-map-control/", display_tax_map_control_views.DisplayTaxMapControlViews.as_view()),
     re_path("taxable-assessment-roll/add/", create_taxable_assessment_roll_views.CreateTaxableAssessmentRollView.as_view()),
