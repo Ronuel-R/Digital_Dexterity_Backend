@@ -23,7 +23,7 @@ class DisplayOwnershipRecordCardViews(APIView):
 
             if tax is None:
                 message = 'Ownership Record Card does not exist'
-                status = not_Found
+                status = not_found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 
             serializer = DisplayOwnershipRecordCardSerializer(tax)
