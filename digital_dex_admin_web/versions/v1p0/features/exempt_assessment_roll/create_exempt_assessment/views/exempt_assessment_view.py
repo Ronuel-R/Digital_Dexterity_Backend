@@ -34,14 +34,17 @@ class ExemptAssessmentRollView(APIView):
 
         if serializer.is_valid():
             create_exempt_assessment_roll_obj = ExemptAssessmentRoll.objects.create(
+                revision_year = request.data['revision_year'],
                 prov_city = request.data['prov_city'],
                 prov_city_index_no = request.data['prov_city_index_no'],
                 mun_city = request.data['mun_city'],
                 mun_city_index_no = request.data['mun_city_index_no'],
                 barangay = request.data['barangay'],
                 barangay_index_no = request.data['barangay_index_no'],
+                section = request.data['section'],
                 section_index_no = request.data['section_index_no'],
-                modified = timezone.now(),
+                date_prepared = request.data['date_prepared'],
+                date_modified = timezone.now(),
             )
             create_exempt_assessment_roll_obj.save()
 
