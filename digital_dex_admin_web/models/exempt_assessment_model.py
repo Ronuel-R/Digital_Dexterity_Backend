@@ -15,8 +15,7 @@ class ExemptAssessment(models.Model):
     kind = models.CharField(max_length=255, null = True)
     classification = models.CharField(max_length=255, null = True)
     assessed_value = models.IntegerField(null = True)
-    prev_arpn = models.CharField(max_length=255, null = True)
-    prev_td_no = models.CharField(max_length=255, null = True)
+    legal_basis = models.CharField(max_length=255, null = True)
     effectivity = models.CharField(max_length=255, null = True)
     remarks = models.CharField(max_length=255, null = True)
     
