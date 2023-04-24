@@ -63,8 +63,7 @@ class ExemptAssessmentRollView(APIView):
                         kind = validated_exempt_assessment['kind'],
                         classification = validated_exempt_assessment['classification'],
                         assessed_value = validated_exempt_assessment['assessed_value'],
-                        prev_arpn = validated_exempt_assessment['prev_arpn'],
-                        prev_td_no = validated_exempt_assessment['prev_td_no'],
+                        legal_basis = validated_exempt_assessment['legal_basis'],
                         effectivity = validated_exempt_assessment['effectivity'],
                         remarks = validated_exempt_assessment['remarks']
                     )
