@@ -2,7 +2,6 @@ from django.db import models
 from django.utils import timezone
 
 class TaxMapControl(models.Model):
-
     id = models.AutoField(primary_key=True)
     prov_city = models.CharField(max_length=255, null=True)
     prov_city_index_no = models.IntegerField(null=True)
