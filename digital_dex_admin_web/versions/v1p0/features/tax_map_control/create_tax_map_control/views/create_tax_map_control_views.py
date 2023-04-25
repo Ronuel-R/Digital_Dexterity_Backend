@@ -6,7 +6,7 @@ from .......models.tax_map_control_model import TaxMapControl
 from ..serializers.create_tax_map_control_serializer import CreateTaxMapControlSerializer
 from ..serializers.assessment_serializer import AssessmentSerializer
 from constants.create_tax_map_control_helper import TaxMapControlHelper
-
+from django.utils import timezone
 class CreateTaxMapControlViews(APIView):
     def post(self, request):
         errors = {}
@@ -37,6 +37,7 @@ class CreateTaxMapControlViews(APIView):
                 barangay = request.data['barangay'],
                 barangay_index_no = request.data['barangay_index_no'],
                 section_index_no = request.data['section_index_no'],
+                date_modified = timezone.now()
             )
             create_tax_map_control_obj.save()
 
