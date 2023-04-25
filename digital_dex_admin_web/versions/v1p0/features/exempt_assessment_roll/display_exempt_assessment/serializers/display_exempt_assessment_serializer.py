@@ -5,7 +5,7 @@ from ..serializers.display_assessment_serializer import DisplayAssessmentSeriali
 class DisplayExemptAssessmentSerializer(serializers.ModelSerializer):
     class Meta:
         model = ExemptAssessmentRoll
-        fields = ['revision_year','prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay',
+        fields = ['id','revision_year','prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay',
                   'barangay_index_no', 'section','section_index_no','date_prepared','date_modified']
         
     def to_representation(self, instance):

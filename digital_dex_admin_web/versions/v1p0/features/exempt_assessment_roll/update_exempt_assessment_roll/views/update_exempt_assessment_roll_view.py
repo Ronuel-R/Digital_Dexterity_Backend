@@ -5,7 +5,7 @@ from .......models.exempt_assessment_model import ExemptAssessment
 from constants.http_messages import *
 from ..serializers.update_exempt_assessment_serializer import UpdateExemptAssessmentRollSerializer
 from ..serializers.exempt_assessment_serializer import UpdateAssessmentSerializer
-
+from django.utils import timezone
 
 class UpdateExemptAssessmentRollView(APIView):
     def put(self, request, *args, **kwargs):
@@ -21,11 +21,9 @@ class UpdateExemptAssessmentRollView(APIView):
             message = 'Exempt Assessment Roll does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-
+        exempt_assessment_roll.date_modified = timezone.now()
         serializer = UpdateExemptAssessmentRollSerializer(instance=exempt_assessment_roll, data=request.data)
         if serializer.is_valid():
-            serializer.save()
-           
             for validated_assessment in request.data['exempt_assessments']:
                 assessment_id = validated_assessment.get('id')
                 if assessment_id:
@@ -44,10 +42,12 @@ class UpdateExemptAssessmentRollView(APIView):
                         assessment_serializer.save(exempt_map_control=exempt_assessment_roll)
                     else:
                         errors.update(assessment_serializer.errors)
-
+            serializer.save()
             status = ok
             message = 'Successfully updated Exempt Assessment Roll'
             data = serializer.data
+            exempt_assessment_roll = ExemptAssessmentRoll.objects.get(id=id)
+            data['assessments'] = UpdateAssessmentSerializer(exempt_assessment_roll.exemptassessment_set.all(),many=True).data
         else:
             status = bad_request
             message = 'Invalid Value'

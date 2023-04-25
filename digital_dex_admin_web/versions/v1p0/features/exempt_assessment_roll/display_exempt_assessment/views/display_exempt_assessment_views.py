@@ -25,7 +25,6 @@ class DisplayExemptAssessmentRollViews(APIView):
                 message = 'Exempt Assessment Roll does not exist'
                 status = not_Found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
-
             serializer = DisplayExemptAssessmentSerializer(tax)
         except:
             tax = ExemptAssessmentRoll.objects.all()
