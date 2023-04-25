@@ -21,7 +21,7 @@ class UpdateTaxMapControl(APIView):
             message = 'Tax Map Control does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-        request.data['date_modified'] = timezone.now()
+        tax_map_control.date_modified = timezone.now()
         serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data)
         if serializer.is_valid():
             tax_map_control = serializer.save()

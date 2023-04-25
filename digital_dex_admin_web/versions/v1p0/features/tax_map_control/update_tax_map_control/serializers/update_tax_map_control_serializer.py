@@ -6,10 +6,7 @@ class UpdateTaxMapControlSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaxMapControl
         fields = ['prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay', 
-                  'barangay_index_no', 'section_index_no',
-                  ############ Static ######################
-                  'date_modified'
-                  ]
+                  'barangay_index_no', 'section_index_no']
         
     def to_representation(self, instance):
         rep = super().to_representation(instance)
