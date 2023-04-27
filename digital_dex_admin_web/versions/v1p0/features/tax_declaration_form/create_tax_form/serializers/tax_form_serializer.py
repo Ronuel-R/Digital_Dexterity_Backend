@@ -31,7 +31,7 @@ class TaxFormSerializer(serializers.ModelSerializer):
                   'north','west','east','south',
 
                   ############## KIND OF PROPERTY ############
-                  'property_choices','no_of_storeys','brief_description','specify',
+                  'mach_brief_description','property_choices','no_of_storeys','brief_description','specify',
 
                   ############## INITIAL ASSESSMENT #########
                 #   'total_assessed_value',
@@ -42,6 +42,7 @@ class TaxFormSerializer(serializers.ModelSerializer):
                   'tax_status',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
+                  'qtr',
                   'year',
                   'approved_by',
                   'date_assessed',
