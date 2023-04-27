@@ -18,18 +18,11 @@ class RegisterAdminView(APIView):
         errors = RegisterHelper.validate_data(request)
 
         if len(errors) != 0:
-            status = ok
+            status = bad_request
             message = 'Invalid Value'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         serializer = RegisterAdminSerializer(data=request.data)
-        
-        errors = self.errors
-
-        if len(errors) != 0:
-            status = ok
-            message = 'Invalid Value'
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         if serializer.is_valid():
             Admin.objects.create(
@@ -43,6 +36,7 @@ class RegisterAdminView(APIView):
                 birthday = serializer.validated_data['birthday'],
                 phone_num= request.data['phone_num'],
                 gender = request.data['gender'],
+                position_level = request.data['position_level'],
                 full_name = request.data['first_name'] + ' ' + request.data['last_name'],
             )
             status = created
@@ -50,10 +44,9 @@ class RegisterAdminView(APIView):
             data = serializer.data
             errors = serializer.errors
         else:
-            status = ok
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
     
     

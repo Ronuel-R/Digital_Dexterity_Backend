@@ -23,6 +23,12 @@ class Admin(models.Model):
         ('F', 'Female'),
     )
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES, null = True)
+    ADMIN_CHOICES = (
+        ('SA', 'Super Admin'),
+        ('A', 'Admin'),
+        ('TA', 'Moderator'),
+    )
+    position_level = models.CharField(max_length=2, choices=ADMIN_CHOICES, null = True)
     phone_num = models.CharField(max_length=11, null = True)
     position = models.CharField(max_length=255,null = True)
     date_created = models.DateTimeField(default=timezone.now, null=False,editable=False)
