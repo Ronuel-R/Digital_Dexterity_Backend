@@ -26,7 +26,7 @@ class Admin(models.Model):
     ADMIN_CHOICES = (
         ('SA', 'Super Admin'),
         ('A', 'Admin'),
-        ('TA', 'Moderator'),
+        ('S', 'Staff'),
     )
     position_level = models.CharField(max_length=2, choices=ADMIN_CHOICES, null = True)
     phone_num = models.CharField(max_length=11, null = True)
