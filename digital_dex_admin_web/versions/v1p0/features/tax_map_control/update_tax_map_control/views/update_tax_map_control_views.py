@@ -22,7 +22,7 @@ class UpdateTaxMapControl(APIView):
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
         tax_map_control.date_modified = timezone.now()
-        serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data)
+        serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data,partial=True)
         if serializer.is_valid():
             tax_map_control = serializer.save()
            
@@ -31,7 +31,7 @@ class UpdateTaxMapControl(APIView):
                 if assessment_id:
                     try:
                         assessment = Assessment.objects.get(pk=assessment_id)
-                        assessment_serializer = UpdateAssessmentSerializer(instance=assessment, data=validated_assessment)
+                        assessment_serializer = UpdateAssessmentSerializer(instance=assessment, data=validated_assessment,partial=True)
                         if assessment_serializer.is_valid():
                             assessment_serializer.save()
                         else:
@@ -39,7 +39,7 @@ class UpdateTaxMapControl(APIView):
                     except Assessment.DoesNotExist:
                         pass
                 else:
-                    assessment_serializer = UpdateAssessmentSerializer(data=validated_assessment)
+                    assessment_serializer = UpdateAssessmentSerializer(data=validated_assessment,partial=True)
                     if assessment_serializer.is_valid():
                         assessment_serializer.save(tax_map_control=tax_map_control)
                     else:
