@@ -35,7 +35,7 @@ class DisplayTaxDecViews(APIView):
             if tax is None:
                 message = 'Tax Declaration Form does not exist'
                 status = not_found
-                return Response({"status": status, "message": message, "data": data, "errors": errors}, status=status)
+                return Response({"status": status, "message": message, "data": data, "errors": errors})
 
             serializer = DisplayTaxFormSerializer(tax)
         except:
