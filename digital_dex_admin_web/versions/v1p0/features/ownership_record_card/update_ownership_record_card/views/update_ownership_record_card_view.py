@@ -5,7 +5,7 @@ from .......models.record_model import RecordCardModel
 from constants.http_messages import *
 from ..serializers.update_ownership_record_card_serializer import UpdateOwnershipRecordCardSerializer
 from ..serializers.update_records_serializer import UpdateRecordSerializer
-
+from django.utils import timezone
 
 class UpdateOwnershipRecordCardView(APIView):
     def put(self, request, *args, **kwargs):
@@ -17,7 +17,7 @@ class UpdateOwnershipRecordCardView(APIView):
         try:
             if 'id' in request.query_params:
                 id = request.query_params['id']
-                exempt_assessment_roll = OwnsershipRecordCardModel.objects.get(id=id)
+                ownership_record = OwnsershipRecordCardModel.objects.get(id=id)
             else:
                 message = 'ID is not provided'
                 status = bad_request
@@ -26,8 +26,9 @@ class UpdateOwnershipRecordCardView(APIView):
             message = 'Exempt Assessment Roll instance does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-
-        serializer = UpdateOwnershipRecordCardSerializer(instance=exempt_assessment_roll, data=request.data)
+        
+        ownership_record.modified = timezone.now().date()
+        serializer = UpdateOwnershipRecordCardSerializer(instance=ownership_record, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
            
@@ -36,7 +37,7 @@ class UpdateOwnershipRecordCardView(APIView):
                 if assessment_id:
                     try:
                         assessment = RecordCardModel.objects.get(pk=assessment_id)
-                        assessment_serializer = UpdateRecordSerializer(instance=assessment, data=validated_records)
+                        assessment_serializer = UpdateRecordSerializer(instance=assessment, data=validated_records,partial=True)
                         if assessment_serializer.is_valid():
                             assessment_serializer.save()
                         else:
@@ -44,9 +45,9 @@ class UpdateOwnershipRecordCardView(APIView):
                     except RecordCardModel.DoesNotExist:
                         pass
                 else:
-                    assessment_serializer = UpdateRecordSerializer(data=validated_records)
+                    assessment_serializer = UpdateRecordSerializer(data=validated_records,partial=True)
                     if assessment_serializer.is_valid():
-                        assessment_serializer.save(exempt_map_control=exempt_assessment_roll)
+                        assessment_serializer.save(exempt_map_control=ownership_record)
                     else:
                         errors.update(assessment_serializer.errors)
 
