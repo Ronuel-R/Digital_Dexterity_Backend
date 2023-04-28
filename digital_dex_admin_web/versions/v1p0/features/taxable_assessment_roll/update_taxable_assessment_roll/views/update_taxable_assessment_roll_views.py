@@ -21,9 +21,8 @@ class UpdateTaxAssessmentRollView(APIView):
             message = 'Tax Assessment Roll does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-        request.data['date_modified'] = timezone.now(),
-        print(request.data['date_modified'])
-        serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data)
+        tax_assessment_roll.date_modified = timezone.now().date()
+        serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
            
@@ -32,7 +31,7 @@ class UpdateTaxAssessmentRollView(APIView):
                 if assessment_id:
                     try:
                         assessment = TaxableAssessment.objects.get(pk=assessment_id)
-                        assessment_serializer = UpdateAssessmentSerializer(instance=assessment, data=validated_assessment)
+                        assessment_serializer = UpdateAssessmentSerializer(instance=assessment, data=validated_assessment,partial=True)
                         if assessment_serializer.is_valid():
                             assessment_serializer.save()
                         else:
@@ -40,7 +39,7 @@ class UpdateTaxAssessmentRollView(APIView):
                     except TaxableAssessment.DoesNotExist:
                         pass
                 else:
-                    assessment_serializer = UpdateAssessmentSerializer(data=validated_assessment)
+                    assessment_serializer = UpdateAssessmentSerializer(data=validated_assessment,partial=True)
                     if assessment_serializer.is_valid():
                         assessment_serializer.save(tax_assessment_roll = tax_assessment_roll)
                     else:
