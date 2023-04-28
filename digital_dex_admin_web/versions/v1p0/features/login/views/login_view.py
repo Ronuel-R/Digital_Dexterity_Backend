@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from ..serializers.login_serializer import LoginAdminSerializer
 from rest_framework.response import Response
-
+from ......models.admin_model import Admin
 
 ############ CONSTANTS ##################
 from constants.login_helper import LoginHelper
@@ -34,11 +34,11 @@ class LoginAdminView(APIView):
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         user = LoginHelper.authenticate_user(self, email, password)
-
+        user_info = Admin.objects.filter(user=user).first()
         if user:
             payload = {
                 'id': user.id,
-                'position_level': user.position_level,
+                'position_level': user_info.position_level,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=30),
                 'iat': datetime.datetime.utcnow()
             }
