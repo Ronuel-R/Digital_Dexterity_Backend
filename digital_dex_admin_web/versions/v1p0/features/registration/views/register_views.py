@@ -6,16 +6,27 @@ from rest_framework.response import Response
 from ......models.admin_model import Admin
 from constants.http_messages import *
 from constants.register_helper import RegisterHelper
-
+from constants.permission_checker_helper import PermissionChecker
+# from constants.auth_user import AuthUser
 class RegisterAdminView(APIView):
-    errors = {}
     def post(self,request):
         errors = {}
         data = {}
         status = None
         message = None
 
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+
         errors = RegisterHelper.validate_data(request)
+        # errors = PermissionChecker.validate_permission_add_user(self,payload)
 
         if len(errors) != 0:
             status = bad_request
