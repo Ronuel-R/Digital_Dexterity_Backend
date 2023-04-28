@@ -7,7 +7,7 @@ class UpdateExemptAssessmentRollSerializer(serializers.ModelSerializer):
     date_prepared = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
     class Meta:
         model = ExemptAssessmentRoll
-        fields = ['revision_year','prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay',
+        fields = ['id','revision_year','prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay',
                   'barangay_index_no', 'section','section_index_no','date_prepared']
         
     # def to_representation(self, instance):
