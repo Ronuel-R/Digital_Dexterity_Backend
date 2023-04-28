@@ -5,7 +5,7 @@ from ..serializers.assessment_serializer import UpdateAssessmentSerializer
 class UpdateTaxMapControlSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaxMapControl
-        fields = ['prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay', 
+        fields = ['id','prov_city', 'prov_city_index_no', 'mun_city', 'mun_city_index_no', 'barangay', 
                   'barangay_index_no', 'section_index_no']
         
     def to_representation(self, instance):
