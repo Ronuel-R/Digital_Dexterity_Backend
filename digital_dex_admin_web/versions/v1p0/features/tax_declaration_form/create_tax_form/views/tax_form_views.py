@@ -143,6 +143,7 @@ class TaxFormViews(APIView):
                 errors['tax_form'] = serializer.errors
             if len(initial_assessment_serializer.errors) != 0:
                 errors['initial_assessment'] =  initial_assessment_serializer.errors
+
             status = created
             message = 'Successfuly Registered Tax Declaration'
             data = serializer.data

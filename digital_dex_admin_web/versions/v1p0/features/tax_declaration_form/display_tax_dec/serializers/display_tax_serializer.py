@@ -22,7 +22,7 @@ class DisplayTaxFormSerializer(serializers.ModelSerializer):
                   'north','west','east','south',
 
                   ############## KIND OF PROPERTY ############
-                  'property_choices','no_of_storeys','brief_description',
+                  'mach_brief_description','property_choices','no_of_storeys','brief_description','specify',
 
                   ############## INITIAL ASSESSMENT #########
                   # 'total_assessed_value',
@@ -34,7 +34,7 @@ class DisplayTaxFormSerializer(serializers.ModelSerializer):
                   'tax_status',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
-                  'year','approved_by','date_assessed',
+                  'qtr','year','approved_by','date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################
                   'cancels_td_no','cancel_owner','cancel_previous_av_php',

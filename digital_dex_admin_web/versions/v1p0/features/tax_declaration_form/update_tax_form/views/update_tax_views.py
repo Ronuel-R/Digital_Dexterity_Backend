@@ -39,8 +39,8 @@ class UpdateTaxFormViews(APIView):
             message = 'Tax Declaration Form does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-        request.data['date_modified'] = timezone.now()
-        serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data)
+        tax_id.date_modified = timezone.now().date()
+        serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data,partial=True)
         if serializer.is_valid():
             initial_assessment = serializer.save()
            
@@ -49,7 +49,7 @@ class UpdateTaxFormViews(APIView):
                 if initial_assessment_id:
                     try:
                         assessment = InitialAssessment.objects.get(pk=initial_assessment_id)
-                        assessment_serializer = UpdateInitialAssessmentSerializer(instance=assessment, data=validated_initial_assessment)
+                        assessment_serializer = UpdateInitialAssessmentSerializer(instance=assessment, data=validated_initial_assessment,partial=True)
                         if assessment_serializer.is_valid():
                             assessment_serializer.save()
                         else:
@@ -57,7 +57,7 @@ class UpdateTaxFormViews(APIView):
                     except InitialAssessment.DoesNotExist:
                         pass
                 else:
-                    assessment_serializer = UpdateInitialAssessmentSerializer(data=validated_initial_assessment)
+                    assessment_serializer = UpdateInitialAssessmentSerializer(data=validated_initial_assessment,partial=True)
                     if assessment_serializer.is_valid():
                         assessment_serializer.save(initial_assessment=initial_assessment)
                     else:
