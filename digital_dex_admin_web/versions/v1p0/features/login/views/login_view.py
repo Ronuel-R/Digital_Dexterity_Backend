@@ -38,6 +38,7 @@ class LoginAdminView(APIView):
         if user:
             payload = {
                 'id': user.id,
+                'position_level': user.position_level,
                 'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=30),
                 'iat': datetime.datetime.utcnow()
             }
