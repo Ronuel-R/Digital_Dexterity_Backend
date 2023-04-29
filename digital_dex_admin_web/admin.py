@@ -10,6 +10,7 @@ from .models.exempt_assessment_model import ExemptAssessment
 from .models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from .models.ownership_record_model import OwnsershipRecordCardModel
 from .models.record_model import RecordCardModel
+from .models.announcement_model import Announcement
 
 
 admin.site.register(Admin)
@@ -23,3 +24,4 @@ admin.site.register(ExemptAssessment)
 admin.site.register(ExemptAssessmentRoll)
 admin.site.register(OwnsershipRecordCardModel)
 admin.site.register(RecordCardModel)
+admin.site.register(Announcement)

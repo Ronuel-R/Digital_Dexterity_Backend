@@ -10,7 +10,18 @@ https://docs.djangoproject.com/en/4.1/howto/deployment/asgi/
 import os
 
 from django.core.asgi import get_asgi_application
-
+### Websocket ###
+from channels.routing import ProtocolTypeRouter, URLRouter
+from channels.auth import AuthMiddlewareStack
+import digital_dex_admin_web.versions.v1p0.features.landing_page.routing.routing
+ 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'config.settings')
 
-application = get_asgi_application()
+application = ProtocolTypeRouter({
+    "http": get_asgi_application(),
+    "websocket": AuthMiddlewareStack(
+        URLRouter(
+            digital_dex_admin_web.versions.v1p0.features.landing_page.routing.routing.websocket_urlpatterns
+        )
+    )
+})
