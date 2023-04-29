@@ -10,6 +10,6 @@ class DisplayExemptAssessmentSerializer(serializers.ModelSerializer):
         
     def to_representation(self, instance):
         rep = super().to_representation(instance)
-        rep['assessments'] = DisplayAssessmentSerializer(instance.exemptassessment_set.all(),many=True).data
+        rep['exempt_assessments'] = DisplayAssessmentSerializer(instance.exemptassessment_set.all(),many=True).data
         rep['total_assessments'] = instance.exemptassessment_set.count()
         return rep

@@ -14,7 +14,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path,re_path
+from django.urls import path,re_path,include
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view , logout_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
 from digital_dex_admin_web.versions.v1p0.features.tax_declaration_form.create_tax_form.views import tax_form_views
@@ -37,6 +37,9 @@ from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.create_o
 from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.display_ownership_record_card.views import display_ownership_record_card_view
 from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.update_ownership_record_card.views import update_ownership_record_card_view
 from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.delete_ownership_record_card.views import delete_ownership_record_card_view
+from digital_dex_admin_web.versions.v1p0.features.landing_page.views import landing_page_view
+from digital_dex_admin_web.versions.v1p0.features.announcement.display_announcement.views import display_announcement
+from digital_dex_admin_web.versions.v1p0.features.announcement.update_announcement.views import update_announcement
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -63,6 +66,9 @@ urlpatterns = [
     re_path("ownership-record/delete/", delete_ownership_record_card_view.DeleteOwnershipRecordCardViews.as_view()),
     re_path("ownership-record/update/", update_ownership_record_card_view.UpdateOwnershipRecordCardView.as_view()),
     re_path("ownership-record/", display_ownership_record_card_view.DisplayOwnershipRecordCardViews.as_view()),
+    re_path("landing-page/", landing_page_view.LandingPageView.as_view()),
+    re_path("announcement/update/", update_announcement.UpdateAnnouncement.as_view()),
+    re_path("announcement/", display_announcement.DisplayAnnouncement.as_view()),
 ]
 
 
