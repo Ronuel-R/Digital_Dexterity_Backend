@@ -30,7 +30,6 @@ class Admin(models.Model):
     )
     position_level = models.CharField(max_length=2, choices=ADMIN_CHOICES, null = True)
     phone_num = models.CharField(max_length=11, null = True)
-    position = models.CharField(max_length=255,null = True)
     date_created = models.DateTimeField(default=timezone.now, null=False,editable=False)
 
     class Meta:
