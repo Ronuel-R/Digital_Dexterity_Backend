@@ -47,7 +47,7 @@ class UpdateExemptAssessmentRollView(APIView):
             message = 'Successfully updated Exempt Assessment Roll'
             data = serializer.data
             exempt_assessment_roll = ExemptAssessmentRoll.objects.get(id=id)
-            data['assessments'] = UpdateAssessmentSerializer(exempt_assessment_roll.exemptassessment_set.all(),many=True).data
+            data['exempt_assessments'] = UpdateAssessmentSerializer(exempt_assessment_roll.exemptassessment_set.all(),many=True).data
         else:
             status = bad_request
             message = 'Invalid Value'
