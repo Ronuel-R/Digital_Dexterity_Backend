@@ -5,7 +5,6 @@ from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from ......models.admin_model import Admin
 from constants.register_helper import RegisterHelper
-from constants.permission_checker_helper import PermissionChecker
 
 ################### Consants #####################
 from constants.auth_user import AuthUser
@@ -30,7 +29,6 @@ class RegisterAdminView(APIView):
         #     return Response(payload)
 
         errors = RegisterHelper.validate_data(request)
-
         # errors = PermissionChecker.validate_permission_add_user(self,payload)
 
         if len(errors) != 0:
@@ -55,16 +53,13 @@ class RegisterAdminView(APIView):
                 position_level = request.data['position_level'],
                 full_name = request.data['first_name'] + ' ' + request.data['last_name'],
             )
-            print(serializer.data)
             status = created
             message = 'Account Successfully Created'
             data = serializer.data
             errors = serializer.errors
-
         else:
             status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-    
     
