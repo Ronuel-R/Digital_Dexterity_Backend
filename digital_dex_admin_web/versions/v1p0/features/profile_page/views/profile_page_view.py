@@ -15,23 +15,30 @@ class ProfilePageView(APIView):
 
         try:
             if not request.user.is_authenticated:
-                raise Exception('You are not logged in')
+                message = 'You are not logged in'
+                status = unauthorized
+                return Response({"status": status, "message": message, "data": data, "errors": errors})
 
             admin = Admin.objects.filter(user=request.user).first()
 
             if admin:
                 serializer = ProfilePageSerializer(admin)
-            data = serializer.data
-                
-            status_code = status.HTTP_200_OK
+                serialized_data = serializer.data
+
+                data = {
+                    'user': serialized_data.get('user', None),
+                    'profile_picture': serialized_data.get('profile_picture', None),
+                    'full_name': serialized_data.get('full_name', ''),
+                    'age': serialized_data.get('age', None),
+                    'gender': serialized_data.get('gender', None),
+                    'phone_num': serialized_data.get('phone_num', ''),
+                    'position': serialized_data.get('position', ''),
+                }
+            status = ok
             message = 'Success'
 
         except Exception as e:
-            errors['message'] = str(e)
-            status_code = status.HTTP_400_BAD_REQUEST
-
-        return Response({"status": status_code, "message": message, "data": data, "errors": errors})
-    
-
-
- 
+            errors = str(e)
+            status = bad_request
+        
+        return Response({"status": status, "message": message, "data": data, "errors": errors})

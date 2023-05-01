@@ -12,10 +12,9 @@ class ProfilePageSerializer(serializers.ModelSerializer):
     gender = serializers.CharField(required=False)
     phone_num = serializers.CharField(required=False)
     position = serializers.CharField(required=False)
-    signature = serializers.ImageField(required=False)
 
     class Meta:
         model = Admin
-        fields = ['user', 'email', 'first_name', 'last_name', 'full_name','profile_picture', 'age', 'gender', 'phone_num', 'position', 'signature']
+        fields = ['user', 'profile_picture', 'full_name', 'age', 'gender', 'phone_num', 'position']
 
  
