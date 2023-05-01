@@ -4,35 +4,41 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from ......models.admin_model import Admin
+# from constants.register_helper import RegisterHelper
+# from constants.permission_checker_helper import PermissionChecker
+
+# ################### Consants #####################
+# from constants.auth_user import AuthUser
+# from constants.permission_checker_helper import PermissionChecker
 from constants.http_messages import *
 
 class RegisterAdminView(APIView):
-    errors = {}
     def post(self,request):
         errors = {}
         data = {}
         status = None
         message = None
+
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+
+        # errors = RegisterHelper.validate_data(request)
+
+        # # errors = PermissionChecker.validate_permission_add_user(self,payload)
+
+        # if len(errors) != 0:
+        #     status = bad_request
+        #     message = 'Invalid Value'
+        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         serializer = RegisterAdminSerializer(data=request.data)
-        
-        self.validate_data(request)
-        
-        errors = self.errors
-
-        if len(errors) != 0:
-            status = ok
-            message = 'Invalid Value'
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        self.validate_image(request)
-
-        errors = self.errors
-
-        if len(errors) != 0:
-            status = ok
-            message = 'Invalid Value'
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         if serializer.is_valid():
             Admin.objects.create(
@@ -43,72 +49,20 @@ class RegisterAdminView(APIView):
                     email= request.data['email'],
                     password= make_password(request.data['password'])
                     ),
-                profile_picture = request.data['profile_picture'],
+                birthday = serializer.validated_data['birthday'],
                 phone_num= request.data['phone_num'],
-                age = request.data ['age'],
                 gender = request.data['gender'],
-                position = request.data['position'],
-                signature = request.data['signature'],
+                position_level = request.data['position_level'],
                 full_name = request.data['first_name'] + ' ' + request.data['last_name'],
             )
+            print(serializer.data)
             status = created
             message = 'Account Successfully Created'
             data = serializer.data
             errors = serializer.errors
+
         else:
-            status = ok
+            status = bad_request
             message = 'Invalid Value'
             errors = serializer.errors
-            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-    
-    def validate_data(self,request):
-        errors = {}
-
-        if request.data['first_name'] and User.objects.filter(username=request.data["first_name"]).count() != 0:
-            errors['first_name'] = 'First name is already used'
-
-        if request.data['email'] and User.objects.filter(email=request.data["email"]).count() != 0:
-            errors['email'] = 'Email has already been used'
-
-        if request.data['password'] != request.data['confirm_password']:
-            errors['password'] = 'Password does not match'
-
-        if len(request.data['phone_num']) != 11:
-            errors['phone_number'] = 'Please Enter a valid phone number'
-
-        if request.data['phone_num'][:2] != '09':
-            errors['phone_number'] = 'Please Enter Philippine-based mobile number'
-
-        self.errors = errors
-
-        return self.errors
-    
-    def validate_image(self,request):
-        errors = {}
-        
-        if 'signature' in request.data:
-            if request.data['signature'] != '':
-                signature_size = request.data['signature'].size
-                signature_ext = request.FILES["signature"]
-                
-                if float(signature_size) > 5000000:
-                    errors['signature_size'] = "You cannot upload file more than 5Mb"
-
-                if signature_ext.content_type != 'image/png' and signature_ext.content_type != 'image/jpeg':
-                    errors['signature_ext'] = "Only use .PNG files or .JPEG files"
-
-        if 'profile_picture' in request.data:
-            if request.data['profile_picture'] != '':
-                profile_picture_size = request.data['profile_picture'].size
-                profile_picture_ext = request.FILES["profile_picture"]
-
-                if float(profile_picture_size) > 5000000:
-                    errors['profile_size'] = "You cannot upload file more than 5Mb"
-                    
-                if profile_picture_ext.content_type != 'image/png' and profile_picture_ext.content_type != 'image/jpeg':
-                    errors['profile_ext'] = "Only use .PNG files or .JPEG files"
-            
-        self.errors = errors
-
-        return self.errors

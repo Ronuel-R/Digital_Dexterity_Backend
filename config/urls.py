@@ -17,9 +17,9 @@ from django.contrib import admin
 from django.urls import path,re_path
 from digital_dex_admin_web.versions.v1p0.features.login.views import login_view
 from digital_dex_admin_web.versions.v1p0.features.registration.views import register_views
-from digital_dex_admin_web.versions.v1p0.features.profile_page.views import profile_page_view
-from digital_dex_admin_web.versions.v1p0.features.update_user.views import update_user_view
-from digital_dex_admin_web.versions.v1p0.features.delete_user.views import delete_user_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.display_user.views import profile_page_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.update_user.views import update_user_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.delete_user.views import delete_user_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),

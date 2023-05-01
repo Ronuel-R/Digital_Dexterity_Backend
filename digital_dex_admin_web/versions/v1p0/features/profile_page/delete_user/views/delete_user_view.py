@@ -3,16 +3,17 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import serializers
 from constants.http_messages import *
+from constants.auth_user import AuthUser
 
 class DeleteUserView(APIView):
-    def validate_username(self, username):
+    def validate_id(self, payload):
         try:
-            User.objects.get(username=username)
+            User.objects.get(id=payload['id'])
         except User.DoesNotExist:
             raise serializers.ValidationError("User does not exist.")
 
-    def delete_user(self, username):
-        user = User.objects.get(username=username)
+    def delete_user(self, payload):
+        user = User.objects.get(id=payload['id'])
         user.delete()
 
     def post(self, request):
@@ -21,26 +22,30 @@ class DeleteUserView(APIView):
         status = None
         message = None
         
-        if not request.user.is_authenticated:
-            message = 'You are not logged in'
-            status = unauthorized
-            return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        token = AuthUser.get_token(request)
+
+        if type(token) == dict:
+            return Response(token)
+
+        payload = AuthUser.get_user(token)
+
+        if 'errors' in payload:
+            return Response(payload)
         
+        id = payload['id']
+        if not id:
+            errors["id"] = ["This field is required."]
+            status = bad_request
         else:
-            username = request.data.get('username')
-            if not username:
-                errors["username"] = ["This field is required."]
+            try:
+                self.validate_id(payload)
+            except serializers.ValidationError as e:
+                errors = e.detail
                 status = bad_request
             else:
-                try:
-                    self.validate_username(username)
-                except serializers.ValidationError as e:
-                    errors = e.detail
-                    status = bad_request
-                else:
-                    self.delete_user(username)
-                    message = "User deleted successfully."
-                    status = ok
+                self.delete_user(payload)
+                message = "User deleted successfully."
+                status = ok
         
         if errors:
             status = status or bad_request

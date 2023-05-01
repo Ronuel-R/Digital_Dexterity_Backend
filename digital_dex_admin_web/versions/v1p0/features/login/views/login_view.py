@@ -76,7 +76,7 @@ class LoginAdminView(APIView):
     
     
 class LogoutAdminView(APIView):
-    def get(self, request):
+    def post(self, request):
         errors = {}
         data = {}
         status = None
