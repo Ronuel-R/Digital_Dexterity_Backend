@@ -3,6 +3,10 @@ from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from django.core.exceptions import ObjectDoesNotExist
 from rest_framework.response import Response
 from constants.http_messages import *
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
 
 class DeleteExemptAssessmentRollViews(APIView):
 
@@ -12,10 +16,22 @@ class DeleteExemptAssessmentRollViews(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        token = AuthUser.get_token(request)
+
+        if type(token) == dict:
+            return Response(token)
+
+        payload = AuthUser.get_user(token)
+
+        if 'errors' in payload:
+            return Response(payload)
+        
+        # errors = PermissionChecker.validate_permission_delete(payload['position_level'])
+
+        # if len(errors) != 0:
+        #     status = bad_request
+        #     message = 'Invalid Input'
+        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
         
         if "id" in request.query_params:
             id = request.query_params["id"]

@@ -13,7 +13,16 @@ class TaxableAssessment(models.Model):
     property_owner = models.CharField(max_length=255, null = True)
     address_of_property_owner = models.CharField(max_length=255, null = True)
     kind = models.CharField(max_length=255, null = True)
-    classification = models.CharField(max_length=255, null = True)
+    CLASSIFICATION_CHOICES = (
+        ('R', 'Residential'),
+        ('A', 'Agricultural'),
+        ('C', 'Commercial'),
+        ('I', 'Industrial'),
+        ('S', 'Special'),
+        ('T', 'Timberland'),
+        ('M', 'Mineral'),   
+    )
+    classification = models.CharField(max_length=1, choices=CLASSIFICATION_CHOICES, null = True)
     assessed_value = models.IntegerField(null = True)
     prev_arpn = models.CharField(max_length=255, null = True)
     prev_td_no = models.CharField(max_length=255, null = True)

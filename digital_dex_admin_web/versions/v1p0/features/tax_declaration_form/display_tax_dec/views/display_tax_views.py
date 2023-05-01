@@ -8,6 +8,9 @@ from .......models.tax_initial_assessment_model import InitialAssessment
 ################### Static Modules ######################
 
 from rest_framework.response import Response
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
 from constants.http_messages import *
 
 class DisplayTaxDecViews(APIView):

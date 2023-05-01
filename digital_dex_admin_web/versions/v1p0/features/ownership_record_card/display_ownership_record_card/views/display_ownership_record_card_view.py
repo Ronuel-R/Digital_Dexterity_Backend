@@ -12,10 +12,15 @@ class DisplayOwnershipRecordCardViews(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
         
         try: 
             id = request.query_params["id"]

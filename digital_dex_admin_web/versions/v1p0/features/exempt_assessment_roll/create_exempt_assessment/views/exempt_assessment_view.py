@@ -9,6 +9,9 @@ from .......models.exempt_assessment_roll_model import ExemptAssessmentRoll
 from ..serializers.exempt_assessment_serializer import ExemptAssessmentRollSerializer
 from ..serializers.assessment_serializer import AssessmentSerializer
 ############## Helper ################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
 # from constants.create_tax_map_control_helper import TaxMapControlHelper
 
 class ExemptAssessmentRollView(APIView):
@@ -18,10 +21,15 @@ class ExemptAssessmentRollView(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
         
         # errors = TaxMapControlHelper.validate_fields(self, request)
 

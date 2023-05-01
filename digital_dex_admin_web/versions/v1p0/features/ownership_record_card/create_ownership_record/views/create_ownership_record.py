@@ -10,6 +10,10 @@ from ..serializers.create_ownership_record_serializer import OwnershipRecordSeri
 from ..serializers.create_record_serializer import RecordSerializer
 ############## Helper ################
 # from constants.create_tax_map_control_helper import TaxMapControlHelper
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
 
 class OwnershipRecordCardView(APIView):
     def post(self, request):
@@ -18,10 +22,15 @@ class OwnershipRecordCardView(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
         
         # errors = TaxMapControlHelper.validate_fields(self, request)
 

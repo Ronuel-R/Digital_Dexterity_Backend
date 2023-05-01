@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from .......models.taxable_assessment_roll_model import TaxableAssessmentRoll
 from ..serializers.display_taxable_assessment_roll_serializer import DisplayTaxAssessmentRollSerializer
 from rest_framework.response import Response
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
 from constants.http_messages import *
 
 class DisplayTaxAssessmentRollViews(APIView):
@@ -12,10 +15,15 @@ class DisplayTaxAssessmentRollViews(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
         
         try: 
             id = request.query_params["id"]
@@ -23,7 +31,7 @@ class DisplayTaxAssessmentRollViews(APIView):
 
             if tax is None:
                 message = 'Tax Assessment Roll does not exist'
-                status = not_Found
+                status = not_found
                 return Response({"status": status , "message": message , "data": data, "errors":errors})
 
             serializer = DisplayTaxAssessmentRollSerializer(tax)

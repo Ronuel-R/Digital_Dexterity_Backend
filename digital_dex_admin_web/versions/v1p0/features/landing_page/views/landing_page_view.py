@@ -7,8 +7,11 @@ from ......models.announcement_model import Announcement
 from ...announcement.display_announcement.serializers.display_announcement import DisplayAnnouncementSerializer
 from django.db.models import Count, DateTimeField
 from django.db.models.functions import TruncWeek
-from constants.http_messages import *
 from channels.layers import get_channel_layer
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
 
 class LandingPageView(APIView):
     def get(self,request):
@@ -19,6 +22,16 @@ class LandingPageView(APIView):
         # admin_consumer = LandingPageConsumer()
         # admin_consumer.channel_layer = get_channel_layer
         # admin_consumer.room_group_name = 'Admin'
+
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
 
         total_tax_dec = TaxForm.objects.values(week=TruncWeek('date_modified')).annotate(total_updates=Count('date_modified')
         ).order_by('-week').first()

@@ -2,10 +2,13 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .......models.taxable_assessment_roll_model import TaxableAssessmentRoll
 from .......models.taxable_assessment_model import TaxableAssessment
-from constants.http_messages import *
 from ..serializers.update_assessment_serializer import UpdateAssessmentSerializer
 from ..serializers.update_taxable_assessment_roll_serializer import UpdateTaxAssessmentRollSerializer
 from django.utils import timezone
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
 
 class UpdateTaxAssessmentRollView(APIView):
     def put(self, request, *args, **kwargs):
@@ -13,7 +16,24 @@ class UpdateTaxAssessmentRollView(APIView):
         status = None
         message = None
         errors = {}
+        
+        # token = AuthUser.get_token(request)
 
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+
+        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+
+        # if len(errors) != 0:
+        #     status = bad_request
+        #     message = 'Invalid Input'
+        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        
         try:
             id = request.query_params['id']
             tax_assessment_roll = TaxableAssessmentRoll.objects.get(id=id)

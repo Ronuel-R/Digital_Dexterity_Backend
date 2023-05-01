@@ -4,10 +4,14 @@ from django.contrib.auth.models import User
 from django.contrib.auth.hashers import make_password
 from rest_framework.response import Response
 from ......models.admin_model import Admin
-from constants.http_messages import *
 from constants.register_helper import RegisterHelper
 from constants.permission_checker_helper import PermissionChecker
-# from constants.auth_user import AuthUser
+
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
+
 class RegisterAdminView(APIView):
     def post(self,request):
         errors = {}
@@ -26,6 +30,7 @@ class RegisterAdminView(APIView):
         #     return Response(payload)
 
         errors = RegisterHelper.validate_data(request)
+
         # errors = PermissionChecker.validate_permission_add_user(self,payload)
 
         if len(errors) != 0:

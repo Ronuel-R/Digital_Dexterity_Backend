@@ -1,12 +1,17 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from constants.http_messages import *
 from .......models.assessment_model import Assessment
 from .......models.tax_map_control_model import TaxMapControl
 from ..serializers.create_tax_map_control_serializer import CreateTaxMapControlSerializer
 from ..serializers.assessment_serializer import AssessmentSerializer
 from constants.create_tax_map_control_helper import TaxMapControlHelper
 from django.utils import timezone
+
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
+
 class CreateTaxMapControlViews(APIView):
     def post(self, request):
         errors = {}
@@ -14,10 +19,15 @@ class CreateTaxMapControlViews(APIView):
         status = None
         message = None
 
-        # if not request.user.is_authenticated:
-        #     message = 'You are not logged in'
-        #     status = unauthorized
-        #     return Response({"status": status , "message": message ,  "data": data , "errors":errors})
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
         
         # errors = TaxMapControlHelper.validate_fields(self, request)
 

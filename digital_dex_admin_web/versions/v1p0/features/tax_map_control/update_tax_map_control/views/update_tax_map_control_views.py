@@ -3,16 +3,38 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from .......models.tax_map_control_model import TaxMapControl
 from .......models.assessment_model import Assessment
-from constants.http_messages import *
 from ..serializers.update_tax_map_control_serializer import UpdateTaxMapControlSerializer
 from ..serializers.assessment_serializer import UpdateAssessmentSerializer
 from django.utils import timezone
+
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
+from constants.http_messages import *
+
 class UpdateTaxMapControl(APIView):
     def put(self, request, *args, **kwargs):
         data = {}
         status = None
         message = None
         errors = {}
+
+        # token = AuthUser.get_token(request)
+
+        # if type(token) == dict:
+        #     return Response(token)
+
+        # payload = AuthUser.get_user(token)
+
+        # if 'errors' in payload:
+        #     return Response(payload)
+
+        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+
+        # if len(errors) != 0:
+        #     status = bad_request
+        #     message = 'Invalid Input'
+        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:
             id = request.query_params['id']
