@@ -40,9 +40,9 @@ from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.delete_o
 from digital_dex_admin_web.versions.v1p0.features.landing_page.views import landing_page_view
 from digital_dex_admin_web.versions.v1p0.features.announcement.display_announcement.views import display_announcement
 from digital_dex_admin_web.versions.v1p0.features.announcement.update_announcement.views import update_announcement
-from digital_dex_admin_web.versions.v1p0.features.profile_page.views import profile_page_view
-from digital_dex_admin_web.versions.v1p0.features.update_user.views import update_user_view
-from digital_dex_admin_web.versions.v1p0.features.delete_user.views import delete_user_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.display_user.views import profile_page_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.update_user.views import update_user_view
+from digital_dex_admin_web.versions.v1p0.features.profile_page.delete_user.views import delete_user_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
