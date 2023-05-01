@@ -40,12 +40,18 @@ from digital_dex_admin_web.versions.v1p0.features.ownership_record_card.delete_o
 from digital_dex_admin_web.versions.v1p0.features.landing_page.views import landing_page_view
 from digital_dex_admin_web.versions.v1p0.features.announcement.display_announcement.views import display_announcement
 from digital_dex_admin_web.versions.v1p0.features.announcement.update_announcement.views import update_announcement
+from digital_dex_admin_web.versions.v1p0.features.profile_page.views import profile_page_view
+from digital_dex_admin_web.versions.v1p0.features.update_user.views import update_user_view
+from digital_dex_admin_web.versions.v1p0.features.delete_user.views import delete_user_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     re_path("login/", login_view.LoginAdminView.as_view()),
     re_path("logout/", logout_view.LogoutAdminView.as_view()),
     re_path("register/", register_views.RegisterAdminView.as_view()),
+    re_path("profile/", profile_page_view.ProfilePageView.as_view()),
+    re_path("update-user/", update_user_view.UpdateUserView.as_view()),
+    re_path("delete-user/", delete_user_view.DeleteUserView.as_view()),
     re_path("tax-declaration/add/", tax_form_views.TaxFormViews.as_view(), name='create_tax_dec'),
     re_path("tax-declaration/delete/", delete_tax_views.DeleteTaxDecViews.as_view(), name='delete_tax_dec'),
     re_path("tax-declaration/update/", update_tax_views.UpdateTaxFormViews.as_view(), name='update_tax_dec'),
