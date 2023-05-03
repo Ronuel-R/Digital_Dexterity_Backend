@@ -43,6 +43,8 @@ from digital_dex_admin_web.versions.v1p0.features.announcement.update_announceme
 from digital_dex_admin_web.versions.v1p0.features.profile_page.display_user.views import profile_page_view
 from digital_dex_admin_web.versions.v1p0.features.profile_page.update_user.views import update_user_view
 from digital_dex_admin_web.versions.v1p0.features.profile_page.delete_user.views import delete_user_view
+from digital_dex_admin_web.versions.v1p0.features.user_control.display_user_control.views import display_user_control_view
+from digital_dex_admin_web.versions.v1p0.features.user_control.update_user_control.views import update_user_control_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -52,6 +54,8 @@ urlpatterns = [
     re_path("profile/", profile_page_view.ProfilePageView.as_view()),
     re_path("update-user/", update_user_view.UpdateUserView.as_view()),
     re_path("delete-user/", delete_user_view.DeleteUserView.as_view()),
+    re_path("user-control/update/", update_user_control_view.UpdateUserControlView.as_view()),
+    re_path("user-control/", display_user_control_view.UserControlView.as_view()),
     re_path("tax-declaration/add/", tax_form_views.TaxFormViews.as_view(), name='create_tax_dec'),
     re_path("tax-declaration/delete/", delete_tax_views.DeleteTaxDecViews.as_view(), name='delete_tax_dec'),
     re_path("tax-declaration/update/", update_tax_views.UpdateTaxFormViews.as_view(), name='update_tax_dec'),

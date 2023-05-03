@@ -42,8 +42,8 @@ CORS_ORIGIN_ALLOW_ALL = True
 
 INSTALLED_APPS = [
 ##################    DEFAULT    ###################
-    'channels',
-    'daphne',
+    # 'channels',
+    # 'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -61,13 +61,13 @@ INSTALLED_APPS = [
     'corsheaders',
 ]
 ######## WebSocket #########
-ASGI_APPLICATION = "config.asgi.application"
+# ASGI_APPLICATION = "config.asgi.application"
 
-CHANNEL_LAYERS = {
-    'default':{
-        'BACKEND':'channels.layers.inMemoryChannelLayer'
-    }
-}
+# CHANNEL_LAYERS = {
+#     'default':{
+#         'BACKEND':'channels.layers.inMemoryChannelLayer'
+#     }
+# }
 # REST_FRAMEWORK = {
 
 #     # 'DEFAULT_PERMISSION_CLASSES': [

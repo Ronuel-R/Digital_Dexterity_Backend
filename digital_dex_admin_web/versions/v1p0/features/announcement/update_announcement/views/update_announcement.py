@@ -2,7 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from .......models.announcement_model import Announcement
 from ..serializers.update_announcement import UpdateAnnouncementSerializer
-from channels.layers import get_channel_layer
+# from channels.layers import get_channel_layer
 ################### Consants #####################
 from constants.auth_user import AuthUser
 from constants.permission_checker_helper import PermissionChecker

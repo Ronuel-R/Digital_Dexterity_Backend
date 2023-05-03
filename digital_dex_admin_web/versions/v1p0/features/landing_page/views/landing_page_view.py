@@ -1,13 +1,15 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from ..websocket.landing_page_socket import LandingPageConsumer
+
 from ......models.tax_form_model import TaxForm
 from ......models.tax_initial_assessment_model import InitialAssessment
 from ......models.announcement_model import Announcement
 from ...announcement.display_announcement.serializers.display_announcement import DisplayAnnouncementSerializer
 from django.db.models import Count, DateTimeField
 from django.db.models.functions import TruncWeek
-from channels.layers import get_channel_layer
+######### WebSocket  ##############
+# from ..websocket.landing_page_socket import LandingPageConsumer
+# from channels.layers import get_channel_layer
 ################### Consants #####################
 from constants.auth_user import AuthUser
 from constants.permission_checker_helper import PermissionChecker
