@@ -4,7 +4,7 @@ from constants.http_messages import *
 from .......models.admin_model import Admin
 from django.contrib.auth.models import User
 from rest_framework import status
-from ..serializers.profile_page_serializer import ProfilePageSerializerAdmin, ProfilePageSerializerUser
+from ..serializers.profile_page_serializer import ProfilePageSerializer
 from constants.auth_user import AuthUser
 
 class ProfilePageView(APIView):
@@ -25,30 +25,32 @@ class ProfilePageView(APIView):
             return Response(payload)
 
         try:
-            user = User.objects.filter(id=payload['id']).first()
-            admin = Admin.objects.filter(id=payload['admin_id']).first()
+            user = User.objects.get(id=payload['id'])
+            admin = user.admin
 
-            if admin:
-                admin_serializer = ProfilePageSerializerAdmin(admin)
-                user_serializer = ProfilePageSerializerUser(user)
-                data = {
-                    'first_name': user_serializer.data.get('first_name', None),
-                    'last_name':  user_serializer.data.get('last_name', None),
-                    'email': user_serializer.data.get('email', None),
-                    'birthday': admin_serializer.data.get('birthday', None),
-                    'phone_num': admin_serializer.data.get('phone_num', ''),
-                    'position_level': admin_serializer.data.get('position_level', None),
-                }
-                status = 'ok'
-                message = 'Successfully Retrieved Profile Information'
-            else:
-                errors = {'error': 'Admin not found'}
-                status = 'not_found'
-                message = 'Admin not found'
+            serializer = ProfilePageSerializer(admin)
+            serialized_data = serializer.data
+            data = {
+                'first_name': serialized_data.get('first_name', None),
+                'last_name': serialized_data.get('last_name', None),
+                'full_name': serialized_data.get('full_name', None),
+                'email': serialized_data.get('email', None),
+                'birthday': serialized_data.get('birthday', None),
+                'phone_num': serialized_data.get('phone_num', ''),
+                'position_level': serialized_data.get('position_level', None),
+            }
+            status = 'ok'
+            message = 'Successfully Retrieved Profile Information'
 
         except Exception as e:
             errors = {'error': str(e)}
             status = 'bad_request'
             message = 'Bad Request'
 
+        if not admin:
+            errors = {'error': 'Admin not found'}
+            status = 'not_found'
+            message = 'Admin not found'
+
         return Response({"status": status, "message": message, "data": data, "errors": errors})
+

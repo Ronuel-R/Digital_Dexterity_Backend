@@ -25,13 +25,13 @@ class DeleteOwnershipRecordCardViews(APIView):
         # if 'errors' in payload:
         #     return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_delete(payload['position_level'])
+        # errors = PermissionChecker.validate_permission_delete(self,payload)
 
         # if len(errors) != 0:
         #     status = bad_request
         #     message = 'Invalid Input'
         #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+
         if "id" in request.query_params:
             id = request.query_params["id"]
             try:
@@ -40,7 +40,7 @@ class DeleteOwnershipRecordCardViews(APIView):
                 message = 'Ownership Record Card with id {} does not exist'.format(id)
                 status_code = bad_request
                 return Response({"status": status_code, "message": message, "data": data, "errors": errors})
-            
+
             tax_model.delete()
 
             message = 'Successfuly Deleted'

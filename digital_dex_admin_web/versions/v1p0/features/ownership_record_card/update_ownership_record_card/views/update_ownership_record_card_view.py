@@ -15,7 +15,7 @@ class UpdateOwnershipRecordCardView(APIView):
         status = None
         message = None
         errors = {}
-        
+
         # token = AuthUser.get_token(request)
 
         # if type(token) == dict:
@@ -26,7 +26,7 @@ class UpdateOwnershipRecordCardView(APIView):
         # if 'errors' in payload:
         #     return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+        # errors = PermissionChecker.validate_permission_edit(self,payload)
 
         # if len(errors) != 0:
         #     status = bad_request
@@ -45,12 +45,12 @@ class UpdateOwnershipRecordCardView(APIView):
             message = 'Exempt Assessment Roll instance does not exist'
             status = bad_request
             return Response({"status": status, "message": message, "errors": errors})
-        
+
         ownership_record.modified = timezone.now().date()
         serializer = UpdateOwnershipRecordCardSerializer(instance=ownership_record, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
-           
+
             for validated_records in request.data['records']:
                 assessment_id = validated_records.get('id')
                 if assessment_id:

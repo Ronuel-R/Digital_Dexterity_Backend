@@ -2,7 +2,6 @@ from rest_framework.views import APIView
 from ..serializers.login_serializer import LoginAdminSerializer
 from rest_framework.response import Response
 from ......models.admin_model import Admin
-
 ############ CONSTANTS ##################
 from constants.login_helper import LoginHelper
 from constants.http_messages import *
@@ -40,7 +39,7 @@ class LoginAdminView(APIView):
                 'id': user.id,
                 'admin_id': user_info.id,
                 'position_level': user_info.position_level,
-                'exp': datetime.datetime.utcnow() + datetime.timedelta(seconds=30),
+                'exp': datetime.datetime.utcnow() + datetime.timedelta(minutes=60),
                 'iat': datetime.datetime.utcnow()
             }
 

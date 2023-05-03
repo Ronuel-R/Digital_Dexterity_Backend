@@ -21,17 +21,17 @@ class DisplayTaxDecViews(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
-        try: 
+        if 'errors' in payload:
+            return Response(payload)
+
+        try:
             id = request.query_params["id"]
             tax = TaxForm.objects.filter(id = id).first()
 

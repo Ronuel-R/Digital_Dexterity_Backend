@@ -26,23 +26,23 @@ class UpdateTaxFormViews(APIView):
         message = None
         errors = {}
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
-        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+        if 'errors' in payload:
+            return Response(payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+        errors = PermissionChecker.validate_permission_edit(self,payload)
+
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+
         try:
             id = request.query_params['id']
             tax_id = TaxForm.objects.get(id=id)
@@ -54,7 +54,7 @@ class UpdateTaxFormViews(APIView):
         serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data,partial=True)
         if serializer.is_valid():
             initial_assessment = serializer.save()
-           
+
             for validated_initial_assessment in request.data['initial_assessments']:
                 initial_assessment_id = validated_initial_assessment.get('id')
                 if initial_assessment_id:

@@ -27,17 +27,17 @@ class TaxFormViews(APIView):
         data = {}
         status = None
         message = None
-        
-        # token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        token = AuthUser.get_token(request)
 
-        # payload = AuthUser.get_user(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
+        payload = AuthUser.get_user(token)
+
+        if 'errors' in payload:
+            return Response(payload)
+
 
 
         errors = TaxFormHelper.validate_fields(self, request)
@@ -159,4 +159,4 @@ class TaxFormViews(APIView):
             message = 'Invalid Value'
             errors = serializer.errors
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+

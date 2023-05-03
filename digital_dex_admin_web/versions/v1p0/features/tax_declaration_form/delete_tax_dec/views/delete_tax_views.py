@@ -20,23 +20,23 @@ class DeleteTaxDecViews(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
-        # errors = PermissionChecker.validate_permission_delete(payload['position_level'])
+        if 'errors' in payload:
+            return Response(payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+        errors = PermissionChecker.validate_permission_delete(self,payload)
+
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+
         if "id" in request.query_params:
             id = request.query_params["id"]
             try:
@@ -45,7 +45,7 @@ class DeleteTaxDecViews(APIView):
                 message = 'TaxForm with id {} does not exist'.format(id)
                 status_code = bad_request
                 return Response({"status": status_code, "message": message, "data": data, "errors": errors})
-            
+
             tax_model.delete()
 
             message = 'Successfuly Deleted'

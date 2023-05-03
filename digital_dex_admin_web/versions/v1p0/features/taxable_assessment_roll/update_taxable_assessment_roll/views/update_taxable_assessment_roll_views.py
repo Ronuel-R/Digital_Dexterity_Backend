@@ -16,7 +16,7 @@ class UpdateTaxAssessmentRollView(APIView):
         status = None
         message = None
         errors = {}
-        
+
         # token = AuthUser.get_token(request)
 
         # if type(token) == dict:
@@ -27,13 +27,13 @@ class UpdateTaxAssessmentRollView(APIView):
         # if 'errors' in payload:
         #     return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+        # errors = PermissionChecker.validate_permission_edit(self,payload)
 
         # if len(errors) != 0:
         #     status = bad_request
         #     message = 'Invalid Input'
         #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+
         try:
             id = request.query_params['id']
             tax_assessment_roll = TaxableAssessmentRoll.objects.get(id=id)
@@ -45,7 +45,7 @@ class UpdateTaxAssessmentRollView(APIView):
         serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data,partial=True)
         if serializer.is_valid():
             serializer.save()
-           
+
             for validated_assessment in request.data['taxable_assessments']:
                 assessment_id = validated_assessment.get('id')
                 if assessment_id:

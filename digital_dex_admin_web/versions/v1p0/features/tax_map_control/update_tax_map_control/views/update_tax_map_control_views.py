@@ -29,7 +29,7 @@ class UpdateTaxMapControl(APIView):
         # if 'errors' in payload:
         #     return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+        # errors = PermissionChecker.validate_permission_edit(self,payload)
 
         # if len(errors) != 0:
         #     status = bad_request
@@ -47,7 +47,7 @@ class UpdateTaxMapControl(APIView):
         serializer = UpdateTaxMapControlSerializer(instance=tax_map_control, data=request.data,partial=True)
         if serializer.is_valid():
             tax_map_control = serializer.save()
-           
+
             for validated_assessment in request.data['assessments']:
                 assessment_id = validated_assessment.get('id')
                 if assessment_id:

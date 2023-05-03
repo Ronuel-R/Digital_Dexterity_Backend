@@ -28,13 +28,13 @@ class UpdateExemptAssessmentRollView(APIView):
         # if 'errors' in payload:
         #     return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(payload['position_level'])
+        # errors = PermissionChecker.validate_permission_edit(self,payload)
 
         # if len(errors) != 0:
         #     status = bad_request
         #     message = 'Invalid Input'
         #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+
         try:
             id = request.query_params['id']
             exempt_assessment_roll = ExemptAssessmentRoll.objects.get(id=id)
