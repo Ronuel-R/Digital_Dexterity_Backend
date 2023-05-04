@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from .......models.tax_form_model import TaxForm
-from ...create_tax_form.serializers.initial_assessment_serializer import InitialAssessmentSerializer
+from .initial_assessment_serializer import InitialAssessmentSerializer
 
 class DisplayTaxFormSerializer(serializers.ModelSerializer):
 
