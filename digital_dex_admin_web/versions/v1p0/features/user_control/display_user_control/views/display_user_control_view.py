@@ -7,7 +7,7 @@ from constants.auth_user import AuthUser
 from constants.permission_checker_helper import PermissionChecker
 
 class UserControlView(APIView):
-    def get(self, request):
+    def get(self, request, *args, **kwargs):
         errors = {}
         data = []
         status = None
@@ -29,8 +29,17 @@ class UserControlView(APIView):
             status = bad_request
             message = 'Invalid Input'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+
         try:
+            id = request.query_params["id"]
+            admins = Admin.objects.filter(id =id).first()
+            admin_serializer = UserControlSerializerAdmin(admins)
+            serialized_data = admin_serializer.data
+            data = admin_serializer.data
+            status = ok
+            message = 'Successfully Retrieved User Control Information'
+
+        except:
             admins = Admin.objects.all()
             admin_serializer = UserControlSerializerAdmin(admins, many=True)
             serialized_data = admin_serializer.data
@@ -42,13 +51,9 @@ class UserControlView(APIView):
                     'last_name': serialized_obj.get('last_name', None),
                     'full_name': serialized_obj.get('full_name', None),
                     'position_level': serialized_obj.get('position_level', None),
+                    'position_level_display': serialized_obj.get('position_level_display', None),
                 })
-            status = 'ok'
-            message = 'Successfully Retrieved User Conrtrol Information'
-
-        except Exception as e:
-            errors = {'error': str(e)}
-            status = 'bad_request'
-            message = 'Bad Request'
+            status = ok
+            message = 'Successfully Retrieved User Control Information'
 
         return Response({"status": status, "message": message, "data": data, "errors": errors})

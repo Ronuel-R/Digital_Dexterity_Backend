@@ -107,7 +107,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'config.wsgi_vercel.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
