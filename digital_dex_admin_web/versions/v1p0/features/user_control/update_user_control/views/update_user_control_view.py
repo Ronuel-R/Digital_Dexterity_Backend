@@ -35,14 +35,17 @@ class UpdateUserControlView(APIView):
             admin_id = request.query_params.get('id')
             admin = Admin.objects.get(id=admin_id)
 
-
+            user_first_name = admin.user.first_name
             serializer = UserControlSerializer(instance=admin, data=request.data , partial=True)
             if serializer.is_valid():
                 serializer.save()
                 serialized_data = serializer.data
+                user_first_name = admin.user.first_name
+                user_last_name = admin.user.last_name
+                user_full_name = f"{user_first_name} {user_last_name}"
                 data = {
                 'id': serialized_data.get('id', None),
-                'full_name': serialized_data.get('full_name', None),
+                'full_name': user_full_name,
                 'position_level': serialized_data.get('position_level', None),
             }
                 message = 'User control updated successfully'
