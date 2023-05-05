@@ -18,26 +18,26 @@ class RegisterAdminView(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
+        if 'errors' in payload:
+            return Response(payload)
 
         errors = RegisterHelper.validate_data(request)
-        # errors = PermissionChecker.validate_permission_add_user(self,payload)
+        errors = PermissionChecker.validate_permission_add_user(self,payload)
 
         if len(errors) != 0:
             status = bad_request
             message = 'Invalid Value'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
+
         serializer = RegisterAdminSerializer(data=request.data)
-        
+
         if serializer.is_valid():
             Admin.objects.create(
                 user = User.objects.create(
@@ -62,4 +62,4 @@ class RegisterAdminView(APIView):
             message = 'Invalid Value'
             errors = serializer.errors
         return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-    
+

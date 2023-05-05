@@ -12,6 +12,11 @@ class TaxFormSerializer(serializers.ModelSerializer):
     specify = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     property_choices = serializers.ChoiceField(required=False, choices=[(('L', 'Land')),('B', 'Building'), ('M', 'Machinery'), ('O', 'Others')])
     tax_status = serializers.ChoiceField(required=False, choices=[(('T', 'Taxable')),('E', 'Exempt')])
+    ########### Admin #############
+    administrator_beneficial_user = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_tin = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_tel_no = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_address = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     class Meta:
         model = TaxForm
         fields = ['id','td_no', 'property_identification_no',

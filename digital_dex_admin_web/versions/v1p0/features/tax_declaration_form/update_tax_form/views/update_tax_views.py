@@ -53,7 +53,7 @@ class UpdateTaxFormViews(APIView):
         tax_id.date_modified = timezone.now().date()
         serializer = UpdateTaxFormSerializer(instance=tax_id, data=request.data,partial=True)
         if serializer.is_valid():
-            initial_assessment = serializer.save()
+            tax_dec_form = serializer.save()
 
             for validated_initial_assessment in request.data['initial_assessments']:
                 initial_assessment_id = validated_initial_assessment.get('id')
@@ -68,9 +68,9 @@ class UpdateTaxFormViews(APIView):
                     except InitialAssessment.DoesNotExist:
                         pass
                 else:
-                    assessment_serializer = UpdateInitialAssessmentSerializer(data=validated_initial_assessment,partial=True)
+                    assessment_serializer = UpdateInitialAssessmentSerializer(data=validated_initial_assessment)
                     if assessment_serializer.is_valid():
-                        assessment_serializer.save(initial_assessment=initial_assessment)
+                        assessment_serializer.save(tax_form=tax_dec_form)
                     else:
                         errors.update(assessment_serializer.errors)
 

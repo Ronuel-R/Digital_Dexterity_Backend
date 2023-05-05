@@ -21,15 +21,15 @@ class CreateTaxableAssessmentRollView(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
+        if 'errors' in payload:
+            return Response(payload)
 
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
@@ -68,8 +68,8 @@ class CreateTaxableAssessmentRollView(APIView):
                         lot_block_no = validated_tax_assessment['lot_block_no'],
                         property_owner = validated_tax_assessment['property_owner'],
                         address_of_property_owner = validated_tax_assessment['address_of_property_owner'],
-                        kind = validated_tax_assessment['kind'],
                         classification = validated_tax_assessment['classification'],
+                        # kind = validated_tax_assessment['kind'],
                         assessed_value = validated_tax_assessment['assessed_value'],
                         prev_arpn = validated_tax_assessment['prev_arpn'],
                         prev_td_no = validated_tax_assessment['prev_td_no'],

@@ -2,6 +2,9 @@ from rest_framework.views import APIView
 from .......models.ownership_record_model import OwnsershipRecordCardModel
 from ..serializers.display_ownership_record_card_serializer import DisplayOwnershipRecordCardSerializer
 from rest_framework.response import Response
+################### Consants #####################
+from constants.auth_user import AuthUser
+from constants.permission_checker_helper import PermissionChecker
 from constants.http_messages import *
 
 class DisplayOwnershipRecordCardViews(APIView):
@@ -12,17 +15,17 @@ class DisplayOwnershipRecordCardViews(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
-        try: 
+        if 'errors' in payload:
+            return Response(payload)
+
+        try:
             id = request.query_params["id"]
             tax = OwnsershipRecordCardModel.objects.filter(id = id).first()
 

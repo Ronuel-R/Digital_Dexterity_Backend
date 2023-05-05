@@ -19,16 +19,16 @@ class CreateTaxMapControlViews(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
+        if 'errors' in payload:
+            return Response(payload)
+
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
         # if len(errors) != 0:
@@ -75,7 +75,7 @@ class CreateTaxMapControlViews(APIView):
 
             if len(assessment_serializer.errors) != 0:
                 errors['assessments'] =  assessment_serializer.errors
-                
+
             status = created
             message = 'Successfully Created Tax Map Control'
             data = serializer.data
@@ -86,5 +86,5 @@ class CreateTaxMapControlViews(APIView):
             errors = serializer.errors
 
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        return Response({"status": status , "message": message ,  "data": data , "errors": errors})  
+
+        return Response({"status": status , "message": message ,  "data": data , "errors": errors})

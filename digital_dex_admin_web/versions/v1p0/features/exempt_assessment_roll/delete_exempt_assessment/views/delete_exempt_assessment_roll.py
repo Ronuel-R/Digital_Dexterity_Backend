@@ -26,12 +26,12 @@ class DeleteExemptAssessmentRollViews(APIView):
         if 'errors' in payload:
             return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_delete(self,payload)
+        errors = PermissionChecker.validate_permission_delete(self,payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         if "id" in request.query_params:
             id = request.query_params["id"]

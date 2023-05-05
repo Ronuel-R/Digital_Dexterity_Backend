@@ -22,16 +22,16 @@ class OwnershipRecordCardView(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
+        if 'errors' in payload:
+            return Response(payload)
+
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
         # if len(errors) != 0:
@@ -75,13 +75,13 @@ class OwnershipRecordCardView(APIView):
                         assessed_value = validated_records['assessed_value'],
                         remarks = validated_records['remarks']
                     )
-                    
+
             if len(serializer.errors) != 0:
                 errors['ownership_record'] = serializer.errors
 
             if len(assessment_serializer.errors) != 0:
                 errors['records'] =  assessment_serializer.errors
-                
+
             status = created
             message = 'Successfully Created Ownership Record Card'
             data = serializer.data
@@ -92,5 +92,5 @@ class OwnershipRecordCardView(APIView):
             errors = serializer.errors
 
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        return Response({"status": status , "message": message ,  "data": data , "errors": errors})  
+
+        return Response({"status": status , "message": message ,  "data": data , "errors": errors})

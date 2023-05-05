@@ -19,22 +19,22 @@ class UpdateTaxMapControl(APIView):
         message = None
         errors = {}
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
+        if 'errors' in payload:
+            return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(self,payload)
+        errors = PermissionChecker.validate_permission_edit(self,payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:
             id = request.query_params['id']

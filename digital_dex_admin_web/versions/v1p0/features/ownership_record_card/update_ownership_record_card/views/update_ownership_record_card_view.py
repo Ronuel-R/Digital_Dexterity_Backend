@@ -16,22 +16,22 @@ class UpdateOwnershipRecordCardView(APIView):
         message = None
         errors = {}
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
+        if 'errors' in payload:
+            return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(self,payload)
+        errors = PermissionChecker.validate_permission_edit(self,payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:
             if 'id' in request.query_params:
@@ -49,7 +49,7 @@ class UpdateOwnershipRecordCardView(APIView):
         ownership_record.modified = timezone.now().date()
         serializer = UpdateOwnershipRecordCardSerializer(instance=ownership_record, data=request.data,partial=True)
         if serializer.is_valid():
-            serializer.save()
+            ownership = serializer.save()
 
             for validated_records in request.data['records']:
                 assessment_id = validated_records.get('id')
@@ -66,7 +66,7 @@ class UpdateOwnershipRecordCardView(APIView):
                 else:
                     assessment_serializer = UpdateRecordSerializer(data=validated_records,partial=True)
                     if assessment_serializer.is_valid():
-                        assessment_serializer.save(exempt_map_control=ownership_record)
+                        assessment_serializer.save(ownership=ownership)
                     else:
                         errors.update(assessment_serializer.errors)
 

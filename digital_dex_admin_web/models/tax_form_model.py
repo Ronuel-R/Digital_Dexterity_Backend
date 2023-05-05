@@ -20,7 +20,7 @@ class TaxForm(models.Model):
 
 ############## Admin ####################
     administrator_beneficial_user = models.CharField(max_length=255,null=True)
-    admin_tin = models.IntegerField(null=True)
+    admin_tin = models.CharField(max_length=255,null=True)
     admin_address = models.CharField(max_length=255,null=True)
     admin_tel_no = models.CharField(max_length=255,null=True)
 

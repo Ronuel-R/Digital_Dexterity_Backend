@@ -17,22 +17,22 @@ class UpdateTaxAssessmentRollView(APIView):
         message = None
         errors = {}
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
+        if 'errors' in payload:
+            return Response(payload)
 
-        # errors = PermissionChecker.validate_permission_edit(self,payload)
+        errors = PermissionChecker.validate_permission_edit(self,payload)
 
-        # if len(errors) != 0:
-        #     status = bad_request
-        #     message = 'Invalid Input'
-        #     return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+        if len(errors) != 0:
+            status = bad_request
+            message = 'Invalid Input'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:
             id = request.query_params['id']
@@ -44,7 +44,7 @@ class UpdateTaxAssessmentRollView(APIView):
         tax_assessment_roll.date_modified = timezone.now().date()
         serializer = UpdateTaxAssessmentRollSerializer(instance=tax_assessment_roll, data=request.data,partial=True)
         if serializer.is_valid():
-            serializer.save()
+            tax_assessment = serializer.save()
 
             for validated_assessment in request.data['taxable_assessments']:
                 assessment_id = validated_assessment.get('id')
@@ -61,7 +61,7 @@ class UpdateTaxAssessmentRollView(APIView):
                 else:
                     assessment_serializer = UpdateAssessmentSerializer(data=validated_assessment,partial=True)
                     if assessment_serializer.is_valid():
-                        assessment_serializer.save(tax_assessment_roll = tax_assessment_roll)
+                        assessment_serializer.save(tax_assessment_roll = tax_assessment)
                     else:
                         errors.update(assessment_serializer.errors)
 

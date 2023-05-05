@@ -3,10 +3,10 @@ from digital_dex_admin_web.models.tax_form_model import TaxForm
 class TaxFormHelper:
     def validate_fields(self, request):
         errors = {}
-        
+
         if 'td_no' in request.data and request.data['td_no'] == '':
             errors['td_no'] =  'Tax Declaration Number should not be empty'
-        
+
         if request.data['td_no'] and TaxForm.objects.filter(td_no=request.data["td_no"]).count() != 0:
             errors['td_no'] = 'Tax Declaration Number is already used'
 
@@ -15,7 +15,7 @@ class TaxFormHelper:
 
         if request.data['property_identification_no'] and TaxForm.objects.filter(td_no=request.data["property_identification_no"]).count() != 0:
             errors['property_identification_no'] = 'Property Identification number is already used'
-        
+
         ############## OWNER ########################
 
         if 'owner' in request.data and request.data['owner'] == '':
@@ -29,19 +29,19 @@ class TaxFormHelper:
 
         if 'owner_tel_no' in request.data and request.data['owner_tel_no'] == '':
             errors['owner_tel_no'] =  'Owner Telephone number should not be empty'
-        
-        ############## Admin ####################
-        if 'administrator_beneficial_user' in request.data and request.data['administrator_beneficial_user'] == '':
-            errors['administrator_beneficial_user'] =  'Administrator Beneficial User should not be empty'
 
-        if 'admin_tin' in request.data and request.data['admin_tin'] == '':
-            errors['admin_tin'] =  'Admin Tin should not be empty'
-        
-        if 'admin_address' in request.data and request.data['admin_address'] == '':
-            errors['admin_address'] =  'Admin Address should not be empty'
-        
-        if 'admin_tel_no' in request.data and request.data['admin_tel_no'] == '':
-            errors['admin_tel_no'] =  'Admin Telephone number should not be empty'
+        ############## Admin ####################
+        # if 'administrator_beneficial_user' in request.data and request.data['administrator_beneficial_user'] == '':
+        #     errors['administrator_beneficial_user'] =  'Administrator Beneficial User should not be empty'
+
+        # if 'admin_tin' in request.data and request.data['admin_tin'] == '':
+        #     errors['admin_tin'] =  'Admin Tin should not be empty'
+
+        # if 'admin_address' in request.data and request.data['admin_address'] == '':
+        #     errors['admin_address'] =  'Admin Address should not be empty'
+
+        # if 'admin_tel_no' in request.data and request.data['admin_tel_no'] == '':
+        #     errors['admin_tel_no'] =  'Admin Telephone number should not be empty'
 
         ############## PROPERTY ##################
         if 'property_location' in request.data and request.data['property_location'] == '':

@@ -21,16 +21,16 @@ class ExemptAssessmentRollView(APIView):
         status = None
         message = None
 
-        # token = AuthUser.get_token(request)
+        token = AuthUser.get_token(request)
 
-        # if type(token) == dict:
-        #     return Response(token)
+        if type(token) == dict:
+            return Response(token)
 
-        # payload = AuthUser.get_user(token)
+        payload = AuthUser.get_user(token)
 
-        # if 'errors' in payload:
-        #     return Response(payload)
-        
+        if 'errors' in payload:
+            return Response(payload)
+
         # errors = TaxMapControlHelper.validate_fields(self, request)
 
         # if len(errors) != 0:
@@ -68,20 +68,20 @@ class ExemptAssessmentRollView(APIView):
                         lot_block_no = validated_exempt_assessment['lot_block_no'],
                         property_owner = validated_exempt_assessment['property_owner'],
                         address_of_property_owner = validated_exempt_assessment['address_of_property_owner'],
-                        kind = validated_exempt_assessment['kind'],
                         classification = validated_exempt_assessment['classification'],
+                        # kind = validated_tax_assessment['kind'],
                         assessed_value = validated_exempt_assessment['assessed_value'],
                         legal_basis = validated_exempt_assessment['legal_basis'],
                         effectivity = validated_exempt_assessment['effectivity'],
                         remarks = validated_exempt_assessment['remarks']
                     )
-                    
+
             if len(serializer.errors) != 0:
                 errors['exempt_assessment_roll'] = serializer.errors
 
             if len(assessment_serializer.errors) != 0:
                 errors['assessments'] =  assessment_serializer.errors
-                
+
             status = created
             message = 'Successfully Created Exempt Assessment Roll'
             data = serializer.data
@@ -92,5 +92,5 @@ class ExemptAssessmentRollView(APIView):
             errors = serializer.errors
 
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
-        
-        return Response({"status": status , "message": message ,  "data": data , "errors": errors})  
+
+        return Response({"status": status , "message": message ,  "data": data , "errors": errors})
