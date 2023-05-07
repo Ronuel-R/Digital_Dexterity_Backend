@@ -27,7 +27,7 @@ class UserControlView(APIView):
 
         if len(errors) != 0:
             status = bad_request
-            message = 'Invalid Input'
+            message = 'You are not permitted to access User Control'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:
@@ -50,6 +50,7 @@ class UserControlView(APIView):
                     'first_name': serialized_obj.get('first_name', None),
                     'last_name': serialized_obj.get('last_name', None),
                     'full_name': serialized_obj.get('full_name', None),
+                    'email': serialized_obj.get('email', None),
                     'position_level': serialized_obj.get('position_level', None),
                     'position_level_display': serialized_obj.get('position_level_display', None),
                 })

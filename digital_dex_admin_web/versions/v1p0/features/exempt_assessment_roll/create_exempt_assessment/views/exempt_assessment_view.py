@@ -12,7 +12,7 @@ from ..serializers.assessment_serializer import AssessmentSerializer
 from constants.auth_user import AuthUser
 from constants.permission_checker_helper import PermissionChecker
 from constants.http_messages import *
-# from constants.create_tax_map_control_helper import TaxMapControlHelper
+from constants.create_tax_map_control_helper import TaxMapControlHelper
 
 class ExemptAssessmentRollView(APIView):
     def post(self, request):

@@ -30,7 +30,7 @@ class UpdateOwnershipRecordCardView(APIView):
 
         if len(errors) != 0:
             status = bad_request
-            message = 'Invalid Input'
+            message = 'You are not permitted to edit information'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
 
         try:

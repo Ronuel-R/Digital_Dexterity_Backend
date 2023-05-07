@@ -28,13 +28,20 @@ class RegisterAdminView(APIView):
         if 'errors' in payload:
             return Response(payload)
 
-        errors = RegisterHelper.validate_data(request)
         errors = PermissionChecker.validate_permission_add_user(self,payload)
+
+        if len(errors) != 0:
+            status = bad_request
+            message = 'You are not permitted to register user accounts'
+            return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+
+        errors = RegisterHelper.validate_data(request)
 
         if len(errors) != 0:
             status = bad_request
             message = 'Invalid Value'
             return Response({"status": status , "message": message ,  "data": data , "errors": errors})
+
 
         serializer = RegisterAdminSerializer(data=request.data)
 
