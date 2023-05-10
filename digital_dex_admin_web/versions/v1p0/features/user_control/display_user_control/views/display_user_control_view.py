@@ -53,6 +53,7 @@ class UserControlView(APIView):
                     'email': serialized_obj.get('email', None),
                     'position_level': serialized_obj.get('position_level', None),
                     'position_level_display': serialized_obj.get('position_level_display', None),
+                    'user_id': serialized_obj.get('user_id', None),
                 })
             status = ok
             message = 'Successfully Retrieved User Control Information'

@@ -4,6 +4,19 @@ from .update_initial_assessment_serializer import UpdateInitialAssessmentSeriali
 
 
 class UpdateTaxFormSerializer(serializers.ModelSerializer):
+    dated = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
+    date_assessed = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
+    notes_date = serializers.DateField(format="%Y-%m-%d", input_formats=['%Y-%m-%d'])
+    no_of_storeys = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    brief_description = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    specify = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    property_choices = serializers.ChoiceField(required=False, choices=[(('L', 'Land')),('B', 'Building'), ('M', 'Machinery'), ('O', 'Others')])
+    tax_status = serializers.ChoiceField(required=False, choices=[(('T', 'Taxable')),('E', 'Exempt')])
+    ########### Admin #############
+    administrator_beneficial_user = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_tin = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_tel_no = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    admin_address = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     class Meta:
         model = TaxForm
         fields = ['id','td_no', 'property_identification_no',
@@ -13,10 +26,12 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
 
                   ############## Admin ####################
                   'administrator_beneficial_user', 'admin_tin', 'admin_tel_no',
+                  'admin_address',
 
                   ############## PROPERTY ##################
                   'property_location','oct_no',
                   'survey_no','cct','lot_no','dated','blk_no',
+
                   ############## BOUNDARY ###################
                   'north','west','east','south',
 
@@ -24,29 +39,29 @@ class UpdateTaxFormSerializer(serializers.ModelSerializer):
                   'mach_brief_description','property_choices','no_of_storeys','brief_description','specify',
 
                   ############## INITIAL ASSESSMENT #########
-                  # 'total_assessed_value',
-                  # 'total_market_value',
+                #   'total_assessed_value',
                   'total_assessed_value_words',
-
+                #   'total_market_value',
 
                   ############# FINAL ASSESSMENT ############
                   'tax_status',
 
                   ############# EFFECTIVITY OF ASSESSMENT ############
-                  'qtr','year','approved_by','date_assessed',
+                  'qtr',
+                  'year',
+                  'approved_by',
+                  'date_assessed',
 
                   ############# CANCEL OWNERSHIP #####################
-                  'cancels_td_no','cancel_owner','cancel_previous_av_php',
-                  'memoranda',
+                  'cancels_td_no','cancel_owner','cancel_previous_av_php','memoranda',
 
                   ############# Notes ######################
                   'sanggunian','under_ord_num','notes_date',
 
                   ############ Static ######################
                   'date_modified'
-
                   ]
-        
+
     def to_representation(self, instance):
         rep = super().to_representation(instance)
         rep['initial_assessments'] = UpdateInitialAssessmentSerializer(instance.initialassessment_set.all(),many=True).data

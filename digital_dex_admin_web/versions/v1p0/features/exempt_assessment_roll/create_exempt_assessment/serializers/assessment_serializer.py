@@ -2,6 +2,9 @@ from rest_framework import serializers
 from .......models.exempt_assessment_model import ExemptAssessment
 
 class AssessmentSerializer(serializers.ModelSerializer):
+    arpn = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    effectivity = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    remarks = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     class Meta:
         model = ExemptAssessment
         fields = [

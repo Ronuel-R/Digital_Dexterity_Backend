@@ -20,14 +20,14 @@ class ExemptAssessment(models.Model):
         ('I', 'Industrial'),
         ('S', 'Special'),
         ('T', 'Timberland'),
-        ('M', 'Mineral'),   
+        ('M', 'Mineral'),
     )
     classification = models.CharField(max_length=1, choices=CLASSIFICATION_CHOICES, null = True)
-    assessed_value = models.IntegerField(null = True)
+    assessed_value = models.FloatField(null = True)
     legal_basis = models.CharField(max_length=255, null = True)
     effectivity = models.CharField(max_length=255, null = True)
     remarks = models.CharField(max_length=255, null = True)
-    
+
 
     class Meta:
             verbose_name = 'Exempt Assessment'

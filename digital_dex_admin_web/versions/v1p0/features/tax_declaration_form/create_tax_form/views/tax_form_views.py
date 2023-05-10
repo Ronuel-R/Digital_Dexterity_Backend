@@ -133,6 +133,7 @@ class TaxFormViews(APIView):
             initial_assessment_serializer = InitialAssessmentSerializer(data=request.data['initial_assessments'],many=True)
 
             if initial_assessment_serializer.is_valid():
+
                 for initial_assessment in request.data['initial_assessments']:
                     InitialAssessment.objects.create(
                         tax_form = tax_declaration_form,

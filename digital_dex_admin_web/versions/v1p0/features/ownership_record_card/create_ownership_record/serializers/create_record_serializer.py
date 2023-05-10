@@ -2,6 +2,8 @@ from rest_framework import serializers
 from .......models.record_model import RecordCardModel
 
 class RecordSerializer(serializers.ModelSerializer):
+    arp_no = serializers.CharField(required=False, allow_null=True,allow_blank=True)
+    remarks = serializers.CharField(required=False, allow_null=True,allow_blank=True)
     class Meta:
         model = RecordCardModel
         fields = [
